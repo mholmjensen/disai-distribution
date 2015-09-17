@@ -146,40 +146,6 @@
 
 })();
 (function() {
-  'use strict';
-
-  angular.module('dai.background.config', ['draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.background.directive', [])
-
-  .directive('daiBackground', ['$log', function( $log ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/background/background.tpl.html',
-      link: function() {
-        $log.debug('Linking background');
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
-
-})();
-
-(function() {
 	'use strict';
 
 	angular.module('dai.api.config', [])
@@ -259,7 +225,7 @@
 
 	.provider('ApiService', function() {
 		this.options = {
-			// host: 'http://localhost:3000'
+			host: ''
 		};
 
 		this.configure = function configure(additionalOptions) {
@@ -307,6 +273,40 @@
 			};
 		}];
 	});
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.background.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.background.directive', [])
+
+  .directive('daiBackground', ['$log', function( $log ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/background/background.tpl.html',
+      link: function() {
+        $log.debug('Linking background');
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
 
 })();
 
