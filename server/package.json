@@ -1,0 +1,41 @@
+{
+  "name": "disai-server",
+  "version": "0.1.0",
+  "description": "",
+  "contributers": [
+    {
+      "name": "Martin Holm Jensen",
+      "email": "martinholmj@gmail.com"
+    },
+    {
+      "name": "Rasmus Ljungmann Pedersen",
+      "email": "rasmuslp@gmail.com",
+      "url": "http://ljungmann.net"
+    }
+  ],
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mholmjensen/disai.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mholmjensen/disai/issues"
+  },
+  "main": "app.js",
+  "dependencies": {
+    "connect-slashes": "^1.3.1",
+    "cors": "^2.7.1",
+    "debug": "~2.2.0",
+    "express": "~4.13.1",
+    "express-redirect": "^1.1.1",
+    "extend": "^3.0.0",
+    "hat": "0.0.3",
+    "moment": "^2.10.6",
+    "morgan": "~1.6.1",
+    "serve-favicon": "~2.3.0",
+    "swagger-express-mw": "0.0.4"
+  },
+  "scripts": {
+    "start": "node ./bin/www"
+  }
+}

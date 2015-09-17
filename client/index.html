@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head lang="en">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title ng-bind="Simple Agent"></title>
+	<link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+	<header>
+		Agent<br>
+		<span id="agentToken">Not connected</span>
+	</header>
+	<div class="log">
+		<ul class="log-items">
+		</ul>
+	</div>
+
+	<script src="jquery-2.1.4.min.js"></script>
+	<!-- api wrapper and logging -->
+	<script src="util.js"></script>
+	<!-- rule definitions (includes Update-State) -->
+	<script src="rules.js"></script>
+	<!-- Model-based reflex agent -->
+	<script src="mbra.js"></script>
+
+	<link rel="stylesheet" href="styles.css"/>
+</body>
+
+</html>

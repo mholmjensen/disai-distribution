@@ -1,0 +1,295 @@
+{
+  "center": {
+    "latitude": "55.678619",
+    "longitude": "12.579560"
+  },
+  "locations": {
+    "dis": {
+      "title": "DIS Campus",
+      "coords": {
+        "latitude": "55.677874",
+        "longitude": "12.570768"
+      },
+      "activities": {
+        "navigation": {
+          "title": "Strøgtur",
+          "description": "Take a stroll on Strøget.",
+          "config": {
+            "type": "stroll",
+            "size": {
+              "rows": 7,
+              "columns": 14
+            },
+            "initial": {
+              "row": 0,
+              "column": 0
+            },
+            "seed": 4
+          }
+        },
+        "papersoccer": {
+          "title": "Paper Soccer",
+          "description": "Play a game of paper soccer at a bar.",
+          "config": {
+            "type": "bodega",
+            "seed": 100
+          }
+        },
+        "detektor": {
+          "title": "DISDetektor",
+          "description": "Ace the exams",
+          "config": {
+            "type": "eksamen",
+            "seed": 20
+          }
+        }
+      }
+    },
+    "parken": {
+      "title": "Fælledparken",
+      "description": "Large green area with room for any activity. Nearby is the national football stadium Parken.",
+      "coords": {
+        "latitude": "55.700934",
+        "longitude": "12.56984"
+      },
+      "activities": {
+        "papersoccer": {
+          "title": "Professional football",
+          "description": "Play a game of paper soccer against professionals.",
+          "config": {
+            "type": "pro",
+            "seed": 200
+          }
+        }
+      }
+    },
+    "bryggen": {
+      "title": "Islands Brygge",
+      "description": "Have a swim",
+      "coords": {
+        "latitude": "55.662355",
+        "longitude": "12.570863"
+      },
+      "activities": {
+        "navigation": {
+          "title": "Blocks",
+          "description": "Drive around the Manhattan of Copenhagen.",
+          "config": {
+            "type": "amager",
+            "size": {
+              "rows": 12,
+              "columns": 23
+            },
+            "initial": {
+              "row": 11,
+              "column": 0
+            },
+            "seed": 6
+          }
+        }
+      }
+    },
+    "louises": {
+      "title": "Dronning Louises Bro",
+      "coords": {
+        "latitude": "55.686686",
+        "longitude": "12.563874"
+      }
+    },
+    "koedbyen": {
+      "title": "Kødbyen",
+      "description": "See e.g. https://www.facebook.com/JoleneBar",
+      "coords": {
+        "latitude": "55.668084",
+        "longitude": "12.558930"
+      }
+    },
+    "noerrebrogade": {
+      "title": "Nørrebrogade",
+      "description": "Great for cyclists, clubbing area, enjoy the area around Skt Hans Torv.",
+      "coords": {
+        "latitude": "55.689698",
+        "longitude": "12.555764"
+      },
+      "activities": {
+        "navigation": {
+          "title": "Cyclist heaven",
+          "description": "Take a ride down the car free zone of Nørrebrogade.",
+          "config": {
+            "type": "bike",
+            "size": {
+              "rows": 11,
+              "columns": 19
+            },
+            "initial": {
+              "row": 4,
+              "column": 0
+            },
+            "seed": 11
+          }
+        }
+      }
+    },
+    "jaegersborggade": {
+      "title": "Jægersborggade",
+      "description": "Dine in porridge, pricey coffee and cactii.",
+      "coords": {
+        "latitude": "55.693859",
+        "longitude": "12.542439"
+      }
+    },
+    "frederiksberg": {
+      "title": "Frederiksberg",
+      "description": "An independent municipality inside the city Copenhagen.",
+      "coords": {
+        "latitude": "55.674153",
+        "longitude": "12.536935"
+      }
+    },
+    "langelinie": {
+      "title": "Langelinie",
+      "description": "See the Little Mermaid, Maersk Headquarters and the fortress Kastellet.",
+      "coords": {
+        "latitude": "55.692115",
+        "longitude": "12.598668"
+      },
+      "activities": {
+        "navigation": {
+          "title": "Enter Copenhagen harbour",
+          "description": "Enter the harbour. Inspired by the classic Kaptajn Kaper i Kattegat.",
+          "config": {
+            "type": "kaper",
+            "size": {
+              "rows": 17,
+              "columns": 18
+            },
+            "initial": {
+              "row": 7,
+              "column": 0
+            },
+            "seed": 5
+          }
+        }
+      }
+    },
+    "folketinget": {
+      "title": "Folketinget",
+      "description": "Folketinget is the name of the Danish Parliment. It resides in the castle Christiansborg. Do check out the Royal Library Gardens nearby.",
+      "coords": {
+        "latitude": "55.674516",
+        "longitude": "12.581277"
+      },
+      "activities": {
+        "detektor": {
+          "title": "DISDetektor",
+          "description": "",
+          "config": {
+            "type": "samraad",
+            "seed": 40
+          }
+        }
+      }
+
+    },
+    "christianshavn": {
+      "title": "Christianshavn",
+      "description": "A small island with lots to offer.",
+      "coords": {
+        "latitude": "55.672166",
+        "longitude": "12.591485"
+      }
+    }
+  },
+  "bike": {
+  },
+  "metro": {
+    "dis": {
+      "cw": {
+        "koedbyen": 3
+      },
+      "ccw": {
+        "folketinget": 1
+      }
+    },
+    "koedbyen": {
+      "cw": {
+        "frederiksberg": 5
+      },
+      "ccw": {
+        "dis": 3
+      }
+    },
+    "frederiksberg": {
+      "cw": {
+        "louises": 9
+      },
+      "ccw": {
+        "koedbyen": 5
+      }
+    },
+    "louises": {
+      "cw": {
+        "noerrebrogade": 1
+      },
+      "ccw": {
+        "frederiksberg": 9
+      }
+    },
+    "noerrebrogade": {
+      "cw": {
+        "jaegersborggade": 2
+      },
+      "ccw": {
+        "louises": 1
+      }
+    },
+    "jaegersborggade": {
+      "cw": {
+        "parken": 5
+      },
+      "ccw": {
+        "noerrebrogade": 2
+      }
+    },
+    "parken": {
+      "cw": {
+        "langelinie": 9
+      },
+      "ccw": {
+        "jaegersborggade": 5
+      }
+    },
+    "langelinie": {
+      "cw": {
+        "christianshavn": 8
+      },
+      "ccw": {
+        "parken": 9
+      }
+    },
+    "christianshavn": {
+      "cw": {
+        "bryggen": 5
+      },
+      "ccw": {
+        "langelinie": 8
+      }
+    },
+    "bryggen": {
+      "cw": {
+        "folketinget": 5
+      },
+      "ccw": {
+        "christianshavn": 5
+      }
+    },
+    "folketinget": {
+      "cw": {
+        "dis": 1
+      },
+      "ccw": {
+        "bryggen": 5
+      }
+    }
+  }
+}

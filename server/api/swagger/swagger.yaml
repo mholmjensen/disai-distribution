@@ -1,0 +1,555 @@
+swagger: "2.0"
+info:
+  title: DISAgent Server
+  version: "1.0.0"
+
+basePath: /api
+
+securityDefinitions:
+  agentToken:
+    type: apiKey
+    description: Token received on /environment/connect response must be included on subsequent requests
+    name: agentToken
+    in: header
+
+schemes:
+  # tip: remove http to make production-grade
+  - http
+  - https
+
+consumes:
+  - application/json
+
+produces:
+  - application/json
+
+security:
+  [
+    agentToken: []
+  ]
+
+tags:
+  - name: environment
+    description: Cool environmental stuff
+  - name: map
+  - name: activity
+
+paths:
+  /environment/history:
+    x-swagger-router-controller: environment
+    get:
+      description: History of states and actions from since to now. The i'th action resulted in the i'th state.
+      operationId: history
+      tags:
+        - environment
+      parameters:
+        - name: since
+          in: query
+          description: Return entries after this point. If not specified, this will default to the latest entry.
+          type: integer
+        - name: count
+          in: query
+          description: Number of entries to return, counting form the newest. If 0 or not specified, this will return everything from since to now.
+          type: integer
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/HistoryResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /environment/connect:
+    x-swagger-router-controller: environment
+    get:
+      description: Requests an API key and the current state.
+      operationId: connect
+      tags:
+        - environment
+      parameters:
+        - name: name
+          in: query
+          description: Name of agent
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/ConnectResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /environment/leave:
+    x-swagger-router-controller: environment
+    get:
+      description: Removes the Agent from the environment
+      operationId: leave
+      tags:
+        - environment
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/PerceptResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /environment/agent/say:
+    x-swagger-router-controller: environment
+    get:
+      description: Talk to other agents
+      operationId: agent_say
+      tags:
+        - environment
+      parameters:
+        - name: message
+          in: query
+          description: The message to send
+          required: true
+          type: string
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /map/enter:
+    x-swagger-router-controller: map
+    get:
+      description: Returns the initial state
+      operationId: enter
+      tags:
+        - map
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /map/metro:
+    x-swagger-router-controller: map
+    get:
+      description: Travel one stop with the Metro
+      operationId: metro
+      tags:
+        - map
+      parameters:
+        - name: direction
+          in: query
+          description: The direction to travel
+          required: true
+          type: string
+          enum:
+            - cw
+            - ccw
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /map/bike:
+    x-swagger-router-controller: map
+    get:
+      description: Bike to location
+      operationId: bike
+      tags:
+        - map
+      parameters:
+        - name: locationId
+          in: query
+          description: The location ID of the destination
+          required: true
+          type: string
+
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /map/leave:
+    x-swagger-router-controller: map
+    get:
+      description: Leave the map
+      operationId: leave
+      tags:
+        - map
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /navigation/enter:
+    x-swagger-router-controller: navigation
+    get:
+      description: Returns the initial state
+      operationId: enter
+      tags:
+        - activity
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /navigation/lane:
+    x-swagger-router-controller: navigation
+    get:
+      description: Change lane or stay in current
+      operationId: lane
+      tags:
+        - activity
+      parameters:
+        - name: direction
+          in: query
+          description: Lane change
+          required: true
+          type: string
+          enum:
+            - left
+            - stay
+            - right
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /navigation/leave:
+    x-swagger-router-controller: navigation
+    get:
+      description: Leave this activity
+      operationId: leave
+      tags:
+        - activity
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /papersoccer/enter:
+    x-swagger-router-controller: papersoccer
+    get:
+      description: Returns the initial state
+      operationId: enter
+      tags:
+        - activity
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /papersoccer/play:
+    x-swagger-router-controller: papersoccer
+    get:
+      description: Play the ball
+      operationId: play
+      tags:
+        - activity
+      parameters:
+        - name: direction
+          in: query
+          description: The direction of the ball
+          required: true
+          type: string
+          enum:
+            - n
+            - ne
+            - e
+            - se
+            - s
+            - sw
+            - w
+            - nw
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+  /papersoccer/leave:
+    x-swagger-router-controller: papersoccer
+    get:
+      description: Leave this activity
+      operationId: leave
+      tags:
+        - activity
+      responses:
+        "200":
+          description: Success
+          schema:
+            $ref: "#/definitions/FullResponse"
+        default:
+          description: Error
+          schema:
+            $ref: "#/definitions/ErrorResponse"
+
+definitions:
+
+  weighted_digraph:
+    type: object
+    description: Start vertex
+    additionalProperties:
+      type: object
+      description: Edge
+      additionalProperties:
+        type: object
+        description: End vertex
+        additionalProperties:
+          type: number
+          description: Weight
+
+  coordinate:
+    required:
+      - latitude
+      - longitude
+    properties:
+      latitude:
+        type: string
+        description: First axis coordinate
+      longitude:
+        type: string
+        description: Second axis coordinate
+
+  activity:
+    required:
+      - title
+    properties:
+      title:
+        type: string
+        description: Name of activity
+      description:
+        type: string
+        description: Description of the activity
+
+  location:
+    required:
+      - title
+      - coords
+    properties:
+      title:
+        type: string
+        description: Name of location
+      coords:
+        $ref: "#/definitions/coordinate"
+      activities:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/activity"
+
+  agent:
+    required:
+      - name
+    properties:
+      name:
+        type: string
+        description: Agent name
+      locationId:
+        type: string
+        description: ID of location
+
+  action:
+    required:
+      - label
+      - applicable
+      - agentToken
+      - percepts
+    properties:
+      label:
+        type: string
+        description: Action label
+      applicable:
+        type: boolean
+        description: Action was executed if true
+      agentToken:
+        type: string
+        description: Token of agent that executed the action
+      percepts:
+        type: array
+        description: Additional percepts 
+        items:
+          type: string
+
+  map:
+    required:
+      - center
+      - locations
+      - metro
+      - bike
+    type: object
+    properties:
+      center:
+        $ref: "#/definitions/coordinate"
+      locations:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/location"
+      metro:
+        $ref: "#/definitions/weighted_digraph"
+      bike:
+        $ref: "#/definitions/weighted_digraph"
+
+  navigation:
+    required:
+      - position
+      - graph
+    properties:
+      position:
+        required:
+          - row
+          - column
+        properties:
+          row:
+            type: integer
+          column:
+            type: integer
+      graph:
+        required:
+          - edges
+          - vertices
+        properties:
+          edges:
+            type: object
+            additionalProperties:
+              properties:
+                left:
+                  type: string
+                stay:
+                  type: string
+                right:
+                  type: string
+          vertices:
+            type: object
+            additionalProperties:
+              required:
+                - row
+                - column
+                - weight
+              properties:
+                row:
+                  type: integer
+                column:
+                  type: integer
+                weight:
+                  type: integer
+
+  state:
+    required:
+      - map
+      - agents
+    properties:
+      map:
+        $ref: "#/definitions/map"
+      agents:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/agent"
+      navigation:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/navigation"
+
+  ErrorResponse:
+    properties:
+      message:
+        type: string
+
+  ConnectResponse:
+    required:
+      - agentToken
+      - state
+    properties:
+      agentToken:
+        type: string
+        description: Agent token
+      state:
+        $ref: "#/definitions/state"
+
+  HistoryResponse:
+    required:
+      - since
+      - next
+    properties:
+      since:
+        type: integer
+        description: Starting index
+      next:
+        type: integer
+        description: Index to lookup next query
+      states:
+        type: array
+        items:
+          $ref: "#/definitions/state"
+      actions:
+        type: array
+        items:
+          $ref: "#/definitions/action"
+
+  PerceptResponse:
+    required:
+      - action
+    properties:
+      action:
+        $ref: "#/definitions/action"
+
+  FullResponse:
+    required:
+      - state
+      - action
+    properties:
+      state:
+        $ref: "#/definitions/state"
+      action:
+        $ref: "#/definitions/action"

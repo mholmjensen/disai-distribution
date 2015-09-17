@@ -1,0 +1,28 @@
+header {
+	font-size: 24px;
+	font-weight: bold;
+	text-align: center;
+	padding: 10px;
+}
+
+header span {
+	font-size: 12px;
+	font-family: monospace;
+}
+
+.log {
+	border: 2px solid hsl(150, 75%, 32%);
+	border-radius: 13px;
+	background-color: hsl(150, 75%, 52%);
+	height: 70vh;
+	overflow-y: scroll;
+}
+
+.log-items {
+	font-size: 11pt;
+	font-family: monospace;
+}
+
+.log-item-error {
+	color: red;
+}
