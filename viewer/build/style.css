@@ -1997,7 +1997,7 @@
 #dai .map .marker-container .marker-row {
   position: relative;
   display: block;
-  left: -10px;
+  left: -100px;
   width: 100%;
   text-align: center;
 }
@@ -2010,7 +2010,7 @@
   clear: both;
 }
 #dai .map .marker-container .agents {
-  left: -30px;
+  left: -120px;
   top: -15px;
 }
 #dai .map .marker-container .location {
@@ -2279,10 +2279,11 @@
   background-color: #5cbce6;
   cursor: -webkit-grab;
   cursor: grab;
+  padding: 2px;
   border-radius: 15px;
   border: 2px solid #1e8ebe;
   right: 25%;
-  top: 6%;
+  top: 2%;
 }
 #dai .navigator h4 .agent-1 {
   color: #44ff33;
@@ -3750,17 +3751,18 @@ body {
   margin: 5px 5px;
 }
 #dai .information {
-  width: 80%;
+  width: 60%;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
   margin-top: 20px;
   z-index: 100;
-  background-color: #5cbce6;
+  background-color: #88ceec;
   cursor: -webkit-grab;
   cursor: grab;
+  padding: 2px;
   border-radius: 15px;
-  border: 2px solid #1e8ebe;
+  border: 2px solid #30aadf;
 }
 .json-formatter-row {
   font-size: 11px;

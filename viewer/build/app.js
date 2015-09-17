@@ -490,6 +490,91 @@
 (function() {
   'use strict';
 
+  angular.module('dai.navigator.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.navigator.controller', ['dai.environment'])
+
+  .controller('daiNavigatorController', ['$scope', '$log', function($scope, $log) {
+    $log.debug('Controller daiNavigatorController', $scope);
+  }]);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.navigator.directive', ['dai.navigator.controller', 'dai.environment.service', 'dai.overview.service'])
+
+  .directive('daiNavigator', ['$log', 'EnvironmentService', 'OverviewService', function( $log, EnvironmentService, OverviewService ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/navigator/navigator.tpl.html',
+      controller: 'daiNavigatorController',
+      controllerAs: 'daiNavigatorCtrl',
+      link: function(scope, element) {
+        $log.debug( 'linking daiNavigator' );
+        element.addClass('navigator');
+        element.addClass('animate-show');
+
+        scope.navigator = {
+          problemInstance: undefined,
+          agent: undefined,
+        };
+
+        scope.env = EnvironmentService.env;
+        scope.overview = OverviewService.overview;
+
+        scope.$watch( 'env.currentNavigation', function( newValue, oldValue ) {
+          if( newValue !== oldValue ) {
+            var agToken = OverviewService.overview.selectedAgent.token;
+            if( angular.isDefined( newValue[agToken] ) ) {
+              var instance = newValue[agToken];
+              scope.navigator.agent = OverviewService.overview.selectedAgent.agent;
+              scope.navigator.problemInstance = instance;
+            } else {
+              scope.navigator.problemInstance = undefined;
+            }
+            scope.updateGraph();
+          }
+        } );
+
+        scope.$watch( 'overview.selectedAgent', function( newValue, oldValue ) {
+          if( !angular.equals( newValue, oldValue ) ) {
+            if( angular.isDefined( EnvironmentService.env.currentNavigation[newValue.token] ) ) {
+              scope.navigator.agent = newValue.agent;
+              scope.navigator.problemInstance = EnvironmentService.env.currentNavigation[newValue.token];
+            } else {
+              scope.navigator.agent = undefined;
+              scope.navigator.problemInstance = undefined;
+            }
+            scope.updateGraph();
+          }
+        } );
+
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.navigator', ['dai.navigator.config', 'dai.navigator.directive', 'dai.navigator.graph']);
+
+})();
+
+(function() {
+  'use strict';
+
   angular.module('dai.map.config', ['uiGmapgoogle-maps', 'jsonFormatter'])
 
   .config(['uiGmapGoogleMapApiProvider', function(uiGmapGoogleMapApiProvider) {
@@ -708,91 +793,6 @@
 (function() {
   'use strict';
 
-  angular.module('dai.navigator.config', ['draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.navigator.controller', ['dai.environment'])
-
-  .controller('daiNavigatorController', ['$scope', '$log', function($scope, $log) {
-    $log.debug('Controller daiNavigatorController', $scope);
-  }]);
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.navigator.directive', ['dai.navigator.controller', 'dai.environment.service', 'dai.overview.service'])
-
-  .directive('daiNavigator', ['$log', 'EnvironmentService', 'OverviewService', function( $log, EnvironmentService, OverviewService ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/navigator/navigator.tpl.html',
-      controller: 'daiNavigatorController',
-      controllerAs: 'daiNavigatorCtrl',
-      link: function(scope, element) {
-        $log.debug( 'linking daiNavigator' );
-        element.addClass('navigator');
-        element.addClass('animate-show');
-
-        scope.navigator = {
-          problemInstance: undefined,
-          agent: undefined,
-        };
-
-        scope.env = EnvironmentService.env;
-        scope.overview = OverviewService.overview;
-
-        scope.$watch( 'env.currentNavigation', function( newValue, oldValue ) {
-          if( newValue !== oldValue ) {
-            var agToken = OverviewService.overview.selectedAgent.token;
-            if( angular.isDefined( newValue[agToken] ) ) {
-              var instance = newValue[agToken];
-              scope.navigator.agent = OverviewService.overview.selectedAgent.agent;
-              scope.navigator.problemInstance = instance;
-            } else {
-              scope.navigator.problemInstance = undefined;
-            }
-            scope.updateGraph();
-          }
-        } );
-
-        scope.$watch( 'overview.selectedAgent', function( newValue, oldValue ) {
-          if( !angular.equals( newValue, oldValue ) ) {
-            if( angular.isDefined( EnvironmentService.env.currentNavigation[newValue.token] ) ) {
-              scope.navigator.agent = newValue.agent;
-              scope.navigator.problemInstance = EnvironmentService.env.currentNavigation[newValue.token];
-            } else {
-              scope.navigator.agent = undefined;
-              scope.navigator.problemInstance = undefined;
-            }
-            scope.updateGraph();
-          }
-        } );
-
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.navigator', ['dai.navigator.config', 'dai.navigator.directive', 'dai.navigator.graph']);
-
-})();
-
-(function() {
-  'use strict';
-
   angular.module('dai.overview.config', ['jsonFormatter', 'draggable'])
 
   ;
@@ -904,63 +904,6 @@
 			overview: overview,
 		};
 	}]);
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.map.location.config', ['draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.map.location.directive', [])
-
-  .directive('daiLocation', ['$log', function( $log ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/map/location/location.tpl.html',
-      link: function( scope ) {
-        $log.debug('Linking location');
-        scope.currentLocation = {};
-
-        scope.$watch( 'clickedLocation', function( newValue, oldValue ) {
-          if ( newValue !== oldValue ) {
-            scope.currentLocation = newValue;
-          }
-        });
-        scope.$watch( 'clickedLocationKey', function( newValue, oldValue ) {
-          if ( newValue !== oldValue ) {
-            var imgpath = 'assets/student/fa15/' + newValue;
-            scope.currentLocation.images = {
-              1: {
-                src: imgpath + '1.jpg'
-              },
-              2: {
-                src: imgpath + '2.jpg'
-              },
-              3: {
-                src: imgpath + '3.jpg'
-              }
-            };
-          }
-        });
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.map.location', ['dai.map.location.config', 'dai.map.location.directive']);
 
 })();
 
@@ -1090,6 +1033,63 @@
 	'use strict';
 
 	angular.module('dai.navigator.graph', [ 'dai.navigator.graph.directive']);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.map.location.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.map.location.directive', [])
+
+  .directive('daiLocation', ['$log', function( $log ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/map/location/location.tpl.html',
+      link: function( scope ) {
+        $log.debug('Linking location');
+        scope.currentLocation = {};
+
+        scope.$watch( 'clickedLocation', function( newValue, oldValue ) {
+          if ( newValue !== oldValue ) {
+            scope.currentLocation = newValue;
+          }
+        });
+        scope.$watch( 'clickedLocationKey', function( newValue, oldValue ) {
+          if ( newValue !== oldValue ) {
+            var imgpath = 'assets/student/fa15/' + newValue;
+            scope.currentLocation.images = {
+              1: {
+                src: imgpath + '1.jpg'
+              },
+              2: {
+                src: imgpath + '2.jpg'
+              },
+              3: {
+                src: imgpath + '3.jpg'
+              }
+            };
+          }
+        });
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.map.location', ['dai.map.location.config', 'dai.map.location.directive']);
 
 })();
 
