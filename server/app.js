@@ -33,10 +33,12 @@ var config = {
   appRoot: __dirname, // required config
   swagger_host: 'localhost:3000' // Overwritten if set in config.js
 };
-var local_config = require("./config.js");
-
-extend( config, local_config );
-
+try {
+  var local_config = require("./config.js");
+  extend( config, local_config );
+} catch (e) {
+  // Ignore
+}
 
 swaggerExpress.create(config, function(err, swaggerExpress) {
   if (err) { throw err; }
