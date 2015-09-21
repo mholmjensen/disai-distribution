@@ -3,7 +3,7 @@
 // Open http://172.16.0.203:3000/docs/ to try it out
 //
 
-var tickDelay = 1500;
+var tickDelay = 500;
 var agentName = 'Incognito Agent';
 var apiUrl = 'http://172.16.0.203:3000/api/'; // Turing (AI-1 server)
 apiUrl = 'http://localhost:3000/api/'; // To connect to locally running Copenhagent environment
@@ -14,6 +14,7 @@ var MBRA = {
     mapInstance: undefined,
     navigationInstance: undefined,
     enterNavigation: true,
+    papersoccerPlays: 0,
     at: undefined
   },
   agentToken: undefined,
@@ -43,6 +44,7 @@ var MBRA = {
 
   MBRA.act = function( response ) {
     // The Update-State procedure is taken care of in the associated rule
+    logger.setState( MBRA.agentState );
     MBRA.nextRule = MBRA.ruleMatch( MBRA.agentState, MBRA.rules );
     if ( !MBRA.nextRule ) {
       logger.addToLog('No rules to apply, stopping.');

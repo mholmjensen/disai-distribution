@@ -18,7 +18,7 @@ function enter(req, res) {
   state.current.papersoccer[agent.token] = new Papersoccer(activityDefinition);
   var result = actionHelper.applicable('papersoccer/enter', []);
 
-  environmentHelper.addResult(agent, result);
+  environmentHelper.addResult(agent, result, true);
   res.json(result);
 }
 
@@ -40,6 +40,6 @@ function leave(req, res) {
   delete state.current.papersoccer[agent.token];
   var result = actionHelper.applicable('papersoccer/leave', []);
 
-  environmentHelper.addResult(agent, result);
+  environmentHelper.addResult(agent, result, true);
   res.json(result);
 }

@@ -12,6 +12,19 @@ var logger = {};
     logElement.prepend(logItem);
   };
 
+  var agentStateElement = $('.state-items');
+  logger.setState = function( agentState ) {
+    agentStateElement.empty('ul li');
+    $.each( agentState, function( key, value ) {
+      if ( typeof value === 'object' ) {
+        return true; // continue
+      }
+      var el = $('<li></li>');
+      el.html( '<b>' + key + '</b>: <i>' + JSON.stringify( value ) + '</i>' );
+      agentStateElement.append( el );
+    });
+  };
+
   api.invokingAgent = {};
   var latestResponse;
 

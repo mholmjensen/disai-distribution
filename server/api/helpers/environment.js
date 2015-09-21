@@ -15,17 +15,19 @@ module.exports = {
 	getHistory: getHistory,
 };
 
-function addResult( agent, result ) {
+function addResult( agent, result, fullResponse ) {
 	// Complete the result
 	result.action.agentToken = agent.token;
-	result.state = state.current; // Adding this here ensures that it is on the answer to the client for the action
+	if( fullResponse ) {
+		result.state = state.current; // Adding this here ensures that it is on the answer to the client for the action
+	}
 
 	// Add latest action to agent
 	agent.performedAction(result.action);
 
 	// Update history
 	actionHistory.push( result.action );
-	stateHistory.push( result.state );
+	stateHistory.push( state.current );
 }
 
 function getHistory(since, count) {

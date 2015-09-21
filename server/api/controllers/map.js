@@ -14,7 +14,7 @@ function enter(req, res) {
 
 	var result = state.current.map.actionEnter(agent);
 
-	environmentHelper.addResult(agent, result);
+	environmentHelper.addResult(agent, result, true);
   res.json(result);
 }
 
@@ -43,6 +43,6 @@ function leave(req, res) {
 
 	var result = state.current.map.actionLeave(agent);
 
-	environmentHelper.addResult(agent, result);
+	environmentHelper.addResult(agent, result, true);
   res.json(result);
 }

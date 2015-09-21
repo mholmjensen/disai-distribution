@@ -32,7 +32,8 @@
           "description": "Play a game of paper soccer at a bar.",
           "config": {
             "type": "bodega",
-            "seed": 100
+            "seed": 2,
+            "k": 0
           }
         },
         "detektor": {
@@ -58,7 +59,8 @@
           "description": "Play a game of paper soccer against professionals.",
           "config": {
             "type": "pro",
-            "seed": 200
+            "seed": 6,
+            "k": 3
           }
         }
       }

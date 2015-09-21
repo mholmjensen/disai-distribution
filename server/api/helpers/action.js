@@ -10,14 +10,15 @@ function createLabel(name, parameters) {
 	return name + '(' + parameters.join(',') + ')';
 }
 
-function actionResponse(name, parameters, message, applicable) {
+function actionResponse(name, parameters, message, applicable, percepts) {
+	percepts = percepts || [];
 	return {
 		action: {
 			label: createLabel( name, parameters ),
 			message: message,
 			applicable: applicable,
 			timestamp: moment().format(),
-			percepts: []
+			percepts: percepts
 		}
 	};
 }
@@ -26,6 +27,6 @@ function notApplicable( name, parameters, message ) {
 	return actionResponse(name, parameters, message, false);
 }
 
-function applicable( name, parameters, message ) {
-	return actionResponse(name, parameters, message, true);
+function applicable( name, parameters, message, percepts ) {
+	return actionResponse(name, parameters, message, true, percepts);
 }

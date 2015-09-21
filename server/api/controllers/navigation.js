@@ -18,7 +18,7 @@ function enter(req, res) {
   state.current.navigation[agent.token] = new Navigation(activityDefinition);
   var result = actionHelper.applicable( 'navigation/enter', [] );
 
-  environmentHelper.addResult(agent, result );
+  environmentHelper.addResult( agent, result, true );
   res.json(result);
 }
 
@@ -40,6 +40,6 @@ function leave(req, res) {
 	delete state.current.navigation[agent.token];
 	var result = actionHelper.applicable( 'navigation/leave', [] );
 
-  environmentHelper.addResult(agent, result );
+  environmentHelper.addResult(agent, result, true );
   res.json( result );
 }

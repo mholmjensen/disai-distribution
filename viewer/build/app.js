@@ -38,7 +38,7 @@
 (function() {
   'use strict';
 
-  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.overview', 'dai.background'])
+  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.papersoccer', 'dai.overview', 'dai.background'])
 
   .directive('dai', ['$log', 'pollInterval', 'EnvironmentService', 'OverviewService', function( $log, pollInterval, EnvironmentService, OverviewService) {
     return {
@@ -390,8 +390,9 @@
 				if (next < data.next || typeof next === 'undefined') {
 					var stateIndex = data.states.length-1;
 
-					env.currentNavigation = data.states[stateIndex].navigation;
 					env.currentAgents = data.states[stateIndex].agents;
+					env.currentNavigation = data.states[stateIndex].navigation;
+					env.currentPapersoccer = data.states[stateIndex].papersoccer;
 					env.actionCount = data.next - 1;
 					env.current = {
 						state: data.states[stateIndex],
@@ -760,7 +761,7 @@
             } else {
               scope.navigator.problemInstance = undefined;
             }
-            scope.updateGraph();
+            scope.navigator.updateGraph();
           }
         } );
 
@@ -773,7 +774,7 @@
               scope.navigator.agent = undefined;
               scope.navigator.problemInstance = undefined;
             }
-            scope.updateGraph();
+            scope.navigator.updateGraph();
           }
         } );
 
@@ -910,6 +911,91 @@
 (function() {
   'use strict';
 
+  angular.module('dai.papersoccer.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.papersoccer.controller', ['dai.environment'])
+
+  .controller('daiPapersoccerController', ['$scope', '$log', function($scope, $log) {
+    $log.debug('Controller daiPapersoccerController', $scope);
+  }]);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.papersoccer.directive', ['dai.papersoccer.controller', 'dai.environment.service', 'dai.overview.service'])
+
+  .directive('daiPapersoccer', ['$log', 'EnvironmentService', 'OverviewService', function( $log, EnvironmentService, OverviewService ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/papersoccer/papersoccer.tpl.html',
+      controller: 'daiPapersoccerController',
+      controllerAs: 'daiPapersoccerCtrl',
+      link: function(scope, element) {
+        $log.debug( 'linking daiPapersoccer' );
+        element.addClass('papersoccer');
+        element.addClass('animate-show');
+
+        scope.papersoccer = {
+          problemInstance: undefined,
+          agent: undefined,
+        };
+
+        scope.env = EnvironmentService.env;
+        scope.overview = OverviewService.overview;
+
+        scope.$watch( 'env.currentPapersoccer', function( newValue, oldValue ) {
+          if( newValue !== oldValue ) {
+            var agToken = OverviewService.overview.selectedAgent.token;
+            if( angular.isDefined( newValue[agToken] ) ) {
+              var instance = newValue[agToken];
+              scope.papersoccer.agent = OverviewService.overview.selectedAgent.agent;
+              scope.papersoccer.problemInstance = instance;
+            } else {
+              scope.papersoccer.problemInstance = undefined;
+            }
+            scope.papersoccer.updateGraph();
+          }
+        } );
+
+        scope.$watch( 'overview.selectedAgent', function( newValue, oldValue ) {
+          if( !angular.equals( newValue, oldValue ) ) {
+            if( angular.isDefined( EnvironmentService.env.currentPapersoccer[newValue.token] ) ) {
+              scope.papersoccer.agent = newValue.agent;
+              scope.papersoccer.problemInstance = EnvironmentService.env.currentPapersoccer[newValue.token];
+            } else {
+              scope.papersoccer.agent = undefined;
+              scope.papersoccer.problemInstance = undefined;
+            }
+            scope.papersoccer.updateGraph();
+          }
+        } );
+
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.papersoccer', ['dai.papersoccer.config', 'dai.papersoccer.directive', 'dai.papersoccer.soccerfield']);
+
+})();
+
+(function() {
+  'use strict';
+
   angular.module('dai.map.location.config', ['draggable'])
 
   ;
@@ -1032,7 +1118,7 @@
         element.addClass('graph');
 
         var latestBuildInstance;
-        scope.updateGraph = function() {
+        scope.navigator.updateGraph = function() {
 
           var toBuild = scope.navigator.problemInstance;
           if ( angular.isDefined(toBuild) && angular.isDefined(latestBuildInstance) ) {
@@ -1090,6 +1176,145 @@
 	'use strict';
 
 	angular.module('dai.navigator.graph', [ 'dai.navigator.graph.directive']);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.papersoccer.soccerfield.directive', [])
+
+  .directive('daiSoccerfield', ['$log', function( $log ) {
+
+    return {
+      restrict: 'A',
+      templateUrl: 'app/dai/papersoccer/soccerfield/soccerfield.tpl.html',
+      link: function(scope, element) {
+        $log.debug( 'linking daiSoccerfield' );
+        element.addClass('soccerfield');
+
+        var latestBuildInstance;
+        scope.papersoccer.updateGraph = function() {
+
+          var toBuild = scope.papersoccer.problemInstance;
+          if ( angular.isDefined(toBuild) && angular.isDefined(latestBuildInstance) ) {
+            if( !( angular.equals( toBuild.config, latestBuildInstance.config ) && angular.equals( toBuild.currentVertex, latestBuildInstance.currentVertex ) ) ) {
+              buildGraphBackground( toBuild );
+              latestBuildInstance = angular.copy( toBuild );
+            }
+          } else {
+            buildGraphBackground( toBuild );
+            latestBuildInstance = angular.copy( toBuild );
+          }
+        };
+
+        var vertexId = function( row, column, dir ) {
+          if ( !dir ) {
+            return '['+ row + ',' + column + ']';
+          }
+
+          if( dir.indexOf('N') > - 1 ) {
+            row -= 1;
+          }
+          if( dir.indexOf('S') > - 1 ) {
+            row += 1;
+          }
+          if( dir.indexOf('W') > - 1 ) {
+            column -= 1;
+          }
+          if( dir.indexOf('E') > - 1 ) {
+            column += 1;
+          }
+
+          return vertexId( row, column );
+        };
+
+        var addEdges = function( td, edges ) {
+          angular.forEach( edges, function( description, direction ) {
+
+            if( direction === 'southEast') {
+              td.append( angular.element('<i></i>').addClass( 'south-east ' + 'south-east-' + description.type  ) );
+              td.append( angular.element('<b></b>').addClass( 'south-east ' + 'south-east-' + description.type  ) );
+            }
+
+            if ( direction === 'southWest') {
+              td.append( angular.element('<i></i>').addClass( 'south-west ' + 'south-west-' + description.type  ) );
+              td.append( angular.element('<b></b>').addClass( 'south-west ' + 'south-west-' + description.type  ) );
+            }
+
+            if ( direction !== 'southWest' && direction !== 'southEast' ) {
+              td.addClass( direction + ' ' + direction + '-' + description.type );
+            }
+          });
+        };
+
+        var buildGraphBackground = function( instance ) {
+          element.find('div').remove();
+          if( !angular.isDefined( instance ) ) {
+            return;
+          }
+          var container = angular.element('<div></div>');
+          container.addClass(instance.config.type);
+          var problemK = parseInt( instance.config.k );
+          var rows = 5 + 2 * problemK;
+          var columns = 9 + 2 * problemK;
+          var table = angular.element('<table></table>');
+          for( var row = 0; row < rows; row++ ) {
+            var tr = angular.element('<tr></tr>');
+
+            for( var col = 0; col < columns; col++ ) {
+
+              var td = angular.element('<td></td>');
+              var dot = angular.element('<span></span>');
+              //TODO squares currently not used, but could remove issue with SW/SE cells
+              var squares = angular.element('<div></div>');
+              var squareTL = angular.element('<div></div>'), squareBL = angular.element('<div></div>'), squareTR = angular.element('<div></div>'), squareBR = angular.element('<div></div>');
+              squareTL.addClass('tl').append( angular.element('<i></i>') ).append( angular.element('<b></b>') );
+              squareBL.addClass('bl').append( angular.element('<i></i>') );
+              squareTR.addClass('tr').append( angular.element('<i></i>') );
+              squareBR.addClass('br').append( angular.element('<i></i>') );
+
+              var id = vertexId( row, col );
+              var vertex = instance.soccerfield.vertices[id];
+              if( instance.currentVertex.row === row && instance.currentVertex.column === col  ) {
+                dot.addClass( 'current' );
+                if( instance.isAgentsTurn ) {
+                  dot.addClass( 'agent' );
+                } else {
+                  dot.addClass( 'opponent' );
+                }
+              } else if( vertex ) {
+                if( vertex.term ) {
+                  dot.addClass( 'goal' ).addClass( col === 0 ? 'agent' : 'opponent');
+                }
+              } else {
+                dot.addClass( 'unreachable' );
+              }
+              addEdges( td, instance.soccerfield.edges[id] );
+
+              squares.addClass('squares');
+              squares.append( squareTL ).append( squareTR ).append( squareBL ).append( squareBR );
+              td.append( squares );
+
+              td.append( dot.addClass( 'dot' ) );
+              tr.append( td );
+            }
+            table.append( tr );
+          }
+          container.append( table );
+          element.append( container );
+        };
+
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.papersoccer.soccerfield', [ 'dai.papersoccer.soccerfield.directive']);
 
 })();
 

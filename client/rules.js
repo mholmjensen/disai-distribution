@@ -1,4 +1,7 @@
 var enterMapRule, enterNavigationRule, navigateRule, leaveNavigationRule, rideTheMetroRule;
+var bikeRule;
+var enterPapersoccerRule, papersoccerPlayRule;
+
 var activeAgent;
 
 (function($) {
@@ -8,6 +11,7 @@ var activeAgent;
   function positionToId(position) {
     return '[' + position.row + ',' + position.column + ']';
   }
+
 
   enterMapRule = {
     description: 'enter map',
@@ -54,6 +58,36 @@ var activeAgent;
       });
     }
   };
+
+  enterPapersoccerRule = {
+    description: 'enter papersoccer',
+    applicable: function( agentState ) {
+      if( agentState.isActive ) {
+        return false;
+      }
+
+      if ( agentState.latestActiveLocation === agentState.at ) {
+        return false;
+      }
+
+      var loc = agentState.mapInstance.locations[agentState.at];
+      if ( loc.activities && 'papersoccer' in loc.activities ) {
+        return true;
+      }
+
+      return false;
+    },
+    action: function( agentState ) {
+      api.api('papersoccer/enter', {}, function( response ) {
+        var location = agentState.mapInstance.locations[agentState.at];
+        logger.addToLog('Executed papersoccer/enter() of type ' + location.activities.papersoccer.config.type);
+        agentState.papersoccerInstance = response.state.papersoccer[agentState.agentToken];
+        agentState.isActive = true;
+        agentState.latestActiveLocation = agentState.at;
+      });
+    }
+  };
+
 
   navigateRule = {
     description: 'navigate',
@@ -153,5 +187,59 @@ var activeAgent;
       });
     }
   };
+
+  bikeRule = function( locationId ) {
+    return {
+      description: 'bike to ' + locationId,
+      applicable: function( agentState ) {
+      if( !agentState.hasEnteredMap || agentState.isActive || !agentState.mapInstance ) {
+        return false;
+      }
+
+      if( agentState.at === locationId ) {
+        return false;
+      }
+
+      if( !agentState.mapInstance.locations[locationId] ) {
+        console.warn( 'Invalid locationId in bikeRule ' + locationId );
+        return false;
+      }
+
+      return true;
+      },
+      action: function( agentState ) {
+        var arrivesAt = agentState.mapInstance.locations[locationId];
+        api.api('map/bike', {
+          locationId: locationId
+        }, function( response ) {
+          logger.addToLog('Executed map/bike(' + locationId + ')');
+          agentState.at = locationId;
+        });
+      }
+    };
+  };
+
+
+  papersoccerPlayRule = function( dir ) {
+    return {
+      description: 'play in ' + dir,
+      applicable: function( agentState ) {
+      if( !agentState.hasEnteredMap || !agentState.papersoccerInstance || agentState.papersoccerPlays > 0 ) {
+        return false;
+      }
+
+      return true;
+      },
+      action: function( agentState ) {
+        api.api('papersoccer/play', {
+          direction: dir
+        }, function( response ) {
+          agentState.papersoccerPlays += 1;
+          logger.addToLog('Executed papersoccer/play(' + dir + ')');
+        });
+      }
+    };
+  };
+
 
 })(jQuery);

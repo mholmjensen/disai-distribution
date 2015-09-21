@@ -3423,6 +3423,400 @@
   position: absolute;
   opacity: 0.7;
 }
+#dai .papersoccer {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  z-index: 50;
+  background-color: #5cbce6;
+  cursor: -webkit-grab;
+  cursor: grab;
+  padding: 2px;
+  border-radius: 15px;
+  border: 2px solid #1e8ebe;
+  right: 25%;
+  top: 2%;
+}
+#dai .papersoccer h4 .agent-1 {
+  color: #44ff33;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-1:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-2 {
+  color: #33ffcc;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-2:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-3 {
+  color: #3388ff;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-3:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-4 {
+  color: #8833ff;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-4:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-5 {
+  color: #ff33cc;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-5:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-6 {
+  color: #ff4433;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-6:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-7 {
+  color: #ffee33;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-7:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-8 {
+  color: #66ff33;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-8:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-9 {
+  color: #33ffaa;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-9:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-10 {
+  color: #33aaff;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-10:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-11 {
+  color: #6633ff;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-11:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer h4 .agent-12 {
+  color: #ff33ee;
+  text-shadow: 3px 1px 2px black;
+}
+#dai .papersoccer h4 .agent-12:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f21b";
+  color: inherit;
+  font-size: 1.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
+#dai .papersoccer .soccerfield {
+  position: relative;
+  border-radius: 5px;
+  width: 100%;
+}
+#dai .papersoccer .soccerfield table {
+  position: relative;
+  left: -20px;
+  top: 30px;
+  width: 100%;
+}
+#dai .papersoccer .soccerfield table tr {
+  width: 100%;
+  height: 45px;
+}
+#dai .papersoccer .soccerfield table tr td {
+  width: 45px;
+  position: relative;
+}
+#dai .papersoccer .soccerfield table tr td .dot {
+  position: absolute;
+  right: -13px;
+  top: -13px;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  z-index: 15;
+  border: 1px solid #aaa;
+}
+#dai .papersoccer .soccerfield table tr td .dot.unreachable {
+  background-color: #aaa;
+  border: 1px solid black;
+}
+#dai .papersoccer .soccerfield table tr td .dot.goal {
+  border: 3px dotted black;
+}
+#dai .papersoccer .soccerfield table tr td .dot.agent.goal,
+#dai .papersoccer .soccerfield table tr td .dot.agent.current {
+  background-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr td .dot.opponent.goal,
+#dai .papersoccer .soccerfield table tr td .dot.opponent.current {
+  background-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr td .dot.current {
+  border: 3px dashed #ddd;
+}
+#dai .papersoccer .soccerfield table tr td.south {
+  border-right-style: solid;
+  border-right-width: 4px;
+}
+#dai .papersoccer .soccerfield table tr td.south-agent {
+  border-right-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr td.south-opponent {
+  border-right-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr td.east + td {
+  border-top-style: solid;
+  border-top-width: 4px;
+}
+#dai .papersoccer .soccerfield table tr td.east-agent + td {
+  border-top-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr td.east-opponent + td {
+  border-top-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr td.west {
+  border-top-style: solid;
+  border-top-width: 4px;
+}
+#dai .papersoccer .soccerfield table tr td.west-agent {
+  border-top-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr td.west-opponent {
+  border-top-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr i {
+  position: absolute;
+  width: 0;
+  height: 0;
+  z-index: 10;
+}
+#dai .papersoccer .soccerfield table tr i.south-east {
+  left: 49px;
+  top: 1px;
+  border-top: 40px solid transparent;
+  border-left-style: solid;
+  border-left-width: 40px;
+}
+#dai .papersoccer .soccerfield table tr i.south-east-agent {
+  border-left-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr i.south-east-opponent {
+  border-left-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr i.south-west {
+  right: 0px;
+  top: 1px;
+  border-top: 40px solid transparent;
+  border-right-width: 40px;
+  border-right-style: solid;
+}
+#dai .papersoccer .soccerfield table tr i.south-west.south-west-agent {
+  border-right-color: #0000db;
+}
+#dai .papersoccer .soccerfield table tr i.south-west.south-west-opponent {
+  border-right-color: #db0025;
+}
+#dai .papersoccer .soccerfield table tr b {
+  position: absolute;
+  top: 6px;
+  width: 0;
+  height: 0;
+  z-index: 12;
+}
+#dai .papersoccer .soccerfield table tr b.south-east {
+  left: 49px;
+  border-top: 36px solid transparent;
+  border-left: 36px solid #5cbce6;
+}
+#dai .papersoccer .soccerfield table tr b.south-west {
+  right: 0px;
+  border-top: 36px solid transparent;
+  border-right: 36px solid #5cbce6;
+}
 #dai .overview {
   border: 2px solid #5cbce6;
   border-radius: 5px;

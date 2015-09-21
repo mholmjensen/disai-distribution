@@ -144,7 +144,7 @@ paths:
   /map/metro:
     x-swagger-router-controller: map
     get:
-      description: Travel one stop with the Metro
+      description: Travel one stop with the Metro, the cost is given by weighted_digraph in map.metro
       operationId: metro
       tags:
         - map
@@ -162,7 +162,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/FullResponse"
+            $ref: "#/definitions/PerceptResponse"
         default:
           description: Error
           schema:
@@ -171,14 +171,14 @@ paths:
   /map/bike:
     x-swagger-router-controller: map
     get:
-      description: Bike to location
+      description: Bike to specific location, the cost is 15
       operationId: bike
       tags:
         - map
       parameters:
         - name: locationId
           in: query
-          description: The location ID of the destination
+          description: The locationId of the destination
           required: true
           type: string
 
@@ -186,7 +186,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/FullResponse"
+            $ref: "#/definitions/PerceptResponse"
         default:
           description: Error
           schema:
@@ -247,7 +247,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/FullResponse"
+            $ref: "#/definitions/PerceptResponse"
         default:
           description: Error
           schema:
@@ -313,7 +313,7 @@ paths:
         "200":
           description: Success
           schema:
-            $ref: "#/definitions/FullResponse"
+            $ref: "#/definitions/PerceptResponse"
         default:
           description: Error
           schema:
@@ -485,6 +485,14 @@ definitions:
                 weight:
                   type: integer
 
+  papersoccer:
+    properties:
+      currentVertex:
+        type: object
+      config:
+        type: object
+      
+
   state:
     required:
       - map
@@ -500,6 +508,10 @@ definitions:
         type: object
         additionalProperties:
           $ref: "#/definitions/navigation"
+      papersoccer:
+        type: object
+        additionalProperties:
+          $ref: "#/definitions/papersoccer"
 
   ErrorResponse:
     properties:
