@@ -8,7 +8,7 @@ basePath: /api
 securityDefinitions:
   agentToken:
     type: apiKey
-    description: Token received on /environment/connect response must be included on subsequent requests
+    description: The agentToken received on /environment/connect response must be included on subsequent requests to identify your agent.
     name: agentToken
     in: header
 
@@ -30,15 +30,17 @@ security:
 
 tags:
   - name: environment
-    description: Cool environmental stuff
+    description: Starting point for connecting to Copenhagent.
   - name: map
+    description: Enter the map and travel around.
   - name: activity
+    description: Entering and acting in activities.
 
 paths:
   /environment/history:
     x-swagger-router-controller: environment
     get:
-      description: History of states and actions from since to now. The i'th action resulted in the i'th state.
+      description: Provides a history of states and actions from since to now. The i'th action resulted in the i'th state. [This is used by /viewer/ and should not be accessed by agents]
       operationId: history
       tags:
         - environment
@@ -49,7 +51,7 @@ paths:
           type: integer
         - name: count
           in: query
-          description: Number of entries to return, counting form the newest. If 0 or not specified, this will return everything from since to now.
+          description: Number of entries to return, counting from the newest. If 0 or not specified, this will return everything from since to now.
           type: integer
       responses:
         "200":
@@ -64,7 +66,7 @@ paths:
   /environment/connect:
     x-swagger-router-controller: environment
     get:
-      description: Requests an API key and the current state.
+      description: Requests an agentToken and adds an agent to the environment.
       operationId: connect
       tags:
         - environment
@@ -87,7 +89,7 @@ paths:
   /environment/leave:
     x-swagger-router-controller: environment
     get:
-      description: Removes the Agent from the environment
+      description: Removes the agent from the environment
       operationId: leave
       tags:
         - environment
@@ -104,7 +106,7 @@ paths:
   /environment/agent/say:
     x-swagger-router-controller: environment
     get:
-      description: Talk to other agents
+      description: Talk to other agents and retrieve the most recent state.
       operationId: agent_say
       tags:
         - environment
@@ -127,7 +129,7 @@ paths:
   /map/enter:
     x-swagger-router-controller: map
     get:
-      description: Returns the initial state
+      description: Enter the map. Returns the resulting state.
       operationId: enter
       tags:
         - map
@@ -144,7 +146,7 @@ paths:
   /map/metro:
     x-swagger-router-controller: map
     get:
-      description: Travel one stop with the Metro, the cost is given by weighted_digraph in map.metro
+      description: Travel one stop with the Metro. The cost in discredits is defined in state.map.metro.weighted_digraph.
       operationId: metro
       tags:
         - map
@@ -171,7 +173,7 @@ paths:
   /map/bike:
     x-swagger-router-controller: map
     get:
-      description: Bike to specific location, the cost is 15
+      description: Bike to a specific location. This costs 15 discredits.
       operationId: bike
       tags:
         - map
@@ -212,7 +214,7 @@ paths:
   /navigation/enter:
     x-swagger-router-controller: navigation
     get:
-      description: Returns the initial state
+      description: Enters the navigation activity at the agent's current location. The state returned contains the problem instance that has been generated in state.navigation. The configuration is described within state.map.locations. 
       operationId: enter
       tags:
         - activity
@@ -229,7 +231,7 @@ paths:
   /navigation/lane:
     x-swagger-router-controller: navigation
     get:
-      description: Change lane or stay in current
+      description: Moves the agent one step forward in its current navigation problem instance. The direction parameter determines which three possible lanes the agent should move on to.
       operationId: lane
       tags:
         - activity
@@ -256,7 +258,7 @@ paths:
   /navigation/leave:
     x-swagger-router-controller: navigation
     get:
-      description: Leave this activity
+      description: Leave the current activity
       operationId: leave
       tags:
         - activity
@@ -273,7 +275,7 @@ paths:
   /papersoccer/enter:
     x-swagger-router-controller: papersoccer
     get:
-      description: Returns the initial state
+      description: Enters the paper soccer activity at the agent's current location. The configuration is described within state.map.locations. 
       operationId: enter
       tags:
         - activity
@@ -290,14 +292,14 @@ paths:
   /papersoccer/play:
     x-swagger-router-controller: papersoccer
     get:
-      description: Play the ball
+      description: Makes a play in the agent's current paper soccer instance. If your play results in it being the opponent's turn, the response will contain the sequence of moves made in response. 
       operationId: play
       tags:
         - activity
       parameters:
         - name: direction
           in: query
-          description: The direction of the ball
+          description: The direction of the play
           required: true
           type: string
           enum:
@@ -350,6 +352,19 @@ definitions:
         additionalProperties:
           type: number
           description: Weight
+          
+  labeled_digraph:
+    type: object
+    description: Start vertex
+    additionalProperties:
+      type: object
+      description: Edge
+      additionalProperties:
+        type: object
+        description: End vertex
+        additionalProperties:
+          type: string
+          description: label
 
   coordinate:
     required:
@@ -490,6 +505,8 @@ definitions:
       currentVertex:
         type: object
       config:
+        type: object
+      soccerfield:
         type: object
       
 

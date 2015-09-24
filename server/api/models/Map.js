@@ -21,7 +21,7 @@ Map.prototype.actionMetro = function(agent, direction) {
 	var weight = edge[nextLocation];
 
 	agent.locationId = nextLocation;
-	agent.score -= weight;
+	agent.utility -= weight;
 
 	var description = 'Moving from ' + currentLocation + ' to ' + nextLocation + ' with w = ' + weight;
 	return actionHelper.applicable('map/metro', [direction], description);
@@ -34,7 +34,7 @@ Map.prototype.actionBike = function(agent, locationId) {
 
 	var currentLocation = agent.locationId;
 	agent.locationId = locationId;
-	agent.score -= 15;
+	agent.utility -= 15;
 
 	var description = 'Moving from ' + currentLocation + ' to ' + locationId + ' with w = -15';
 	return actionHelper.applicable('map/bike', [locationId], description);

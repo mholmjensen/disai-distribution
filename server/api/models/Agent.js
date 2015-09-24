@@ -24,8 +24,8 @@ var Agent = function ( token, name ) {
   this.isBusy = false;
   this.activityId = undefined;
 
-  // Agent score
-  this.score = 0;
+  // Agent utility
+  this.utility = 0;
 };
 
 Agent.prototype.leave = function() {

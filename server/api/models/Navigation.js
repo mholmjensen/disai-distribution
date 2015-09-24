@@ -264,7 +264,6 @@ var insertBaseWeights = function( config, vertices ) {
 };
 
 var insertSpecialWeights = function( config, vertices ) {
-	// TODO Use config.type to look up parameters
 	var vret = {};
 	var specialsAll = specialCellTypes.all;
 	var specials = specialCellTypes[config.type];
@@ -393,8 +392,9 @@ Navigation.prototype.actionLane = function( agent, direction ) {
 		return actionHelper.notApplicable('navigation/lane', [direction]);
 	}
 	var movingTo = this.graph.edges[positionVid][direction];
-	agent.score += this.graph.vertices[movingTo].weight;
+	agent.utility += this.graph.vertices[movingTo].weight;
 	this.position = vidToRc( movingTo );
+	var message = '';
 
 	return actionHelper.applicable( 'navigation/lane', [direction] );
 };

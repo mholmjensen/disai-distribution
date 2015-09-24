@@ -15,6 +15,9 @@ function middleware() {
 	debug('Initializing disai applicability middleware');
 
 	return function(req, res, next) {
+		if( !req.swagger ) {
+			return next();
+		}
 		var apiPath = req.swagger.apiPath;
 
 		// Early out for /environment

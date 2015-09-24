@@ -1857,6 +1857,23 @@
   text-align: center;
   text-shadow: 3px 3px 4px #0f1306;
 }
+.activity-amateur:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f1e3";
+  color: #00a86b;
+  font-size: 2.2em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+}
 .activity-pro:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
@@ -3829,6 +3846,9 @@
   margin-right: auto;
   padding: 0px 0px;
   margin: 0px;
+}
+#dai .overview div .tooltip {
+  z-index: 100;
 }
 #dai .overview div .agent-avatar {
   position: relative;

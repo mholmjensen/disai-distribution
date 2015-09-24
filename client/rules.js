@@ -224,7 +224,7 @@ var activeAgent;
     return {
       description: 'play in ' + dir,
       applicable: function( agentState ) {
-      if( !agentState.hasEnteredMap || !agentState.papersoccerInstance || agentState.papersoccerPlays > 0 ) {
+      if( !agentState.hasEnteredMap || !agentState.papersoccerInstance || agentState.papersoccerPlays > 2 ) {
         return false;
       }
 

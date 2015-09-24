@@ -26,6 +26,8 @@ var MBRA = {
 
 (function($) {
   'use strict';
+  // Use these rules to have the agent enter a paper soccer instance
+  // MBRA.rules = [ enterMapRule, bikeRule('parken'), enterPapersoccerRule, Math.random() > 0.5 ? papersoccerPlayRule('se') : papersoccerPlayRule('ne') ];
 
   MBRA.ruleMatch = function( state, rules ) {
     var applicableRules = [];

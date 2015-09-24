@@ -23,56 +23,6 @@
 (function() {
 	'use strict';
 
-	angular.module('dai.config', ['dai.api', 'angularStats'])
-
-	.config(['ApiServiceProvider', function(ApiServiceProvider) {
-		ApiServiceProvider.configure({
-			
-		});
-	}])
-
-	;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.papersoccer', 'dai.overview', 'dai.background'])
-
-  .directive('dai', ['$log', 'pollInterval', 'EnvironmentService', 'OverviewService', function( $log, pollInterval, EnvironmentService, OverviewService) {
-    return {
-      restrict: 'A',
-      templateUrl: 'app/dai/dai.tpl.html',
-      link: function(scope) {
-        scope.pollingEnabled = EnvironmentService.pollingEnabled;
-        scope.env = EnvironmentService.env;
-        scope.overview = OverviewService.overview;
-        scope.current = EnvironmentService.current;
-
-        scope.togglePoll = function() {
-          if (EnvironmentService.pollingEnabled()) {
-            EnvironmentService.setPollInterval( 0 );
-          } else {
-            EnvironmentService.setPollInterval( pollInterval );
-          }
-        };
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai', ['dai.config', 'dai.directive']);
-
-})();
-
-(function() {
-	'use strict';
-
 	angular.module('draggable.directive', [])
 	.directive('draggable', ['$document', '$log', function($document, $log) {
 		return {
@@ -126,6 +76,56 @@
 (function() {
 	'use strict';
 
+	angular.module('dai.config', ['dai.api', 'angularStats'])
+
+	.config(['ApiServiceProvider', function(ApiServiceProvider) {
+		ApiServiceProvider.configure({
+			
+		});
+	}])
+
+	;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.papersoccer', 'dai.overview', 'dai.background'])
+
+  .directive('dai', ['$log', 'pollInterval', 'EnvironmentService', 'OverviewService', function( $log, pollInterval, EnvironmentService, OverviewService) {
+    return {
+      restrict: 'A',
+      templateUrl: 'app/dai/dai.tpl.html',
+      link: function(scope) {
+        scope.pollingEnabled = EnvironmentService.pollingEnabled;
+        scope.env = EnvironmentService.env;
+        scope.overview = OverviewService.overview;
+        scope.current = EnvironmentService.current;
+
+        scope.togglePoll = function() {
+          if (EnvironmentService.pollingEnabled()) {
+            EnvironmentService.setPollInterval( 0 );
+          } else {
+            EnvironmentService.setPollInterval( pollInterval );
+          }
+        };
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai', ['dai.config', 'dai.directive']);
+
+})();
+
+(function() {
+	'use strict';
+
 	angular.module('dai.agent.directive', ['dai.api'])
 
 	.directive('daiAgent', ['ApiService', function(ApiService) {
@@ -145,6 +145,40 @@
 	angular.module('dai.agent', ['dai.agent.directive']);
 
 })();
+(function() {
+  'use strict';
+
+  angular.module('dai.background.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.background.directive', [])
+
+  .directive('daiBackground', ['$log', function( $log ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/background/background.tpl.html',
+      link: function() {
+        $log.debug('Linking background');
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
+
+})();
+
 (function() {
 	'use strict';
 
@@ -273,40 +307,6 @@
 			};
 		}];
 	});
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.background.config', ['draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.background.directive', [])
-
-  .directive('daiBackground', ['$log', function( $log ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/background/background.tpl.html',
-      link: function() {
-        $log.debug('Linking background');
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
 
 })();
 
@@ -846,10 +846,16 @@
 
         var initialAgentSet = false;
         scope.$watch( 'env.currentAgents', function( newValue ) {
-          if( !initialAgentSet && angular.isDefined( newValue ) ) {
-            initialAgentSet = true;
-            scope.settings.selectedRowId = 0;
-            OverviewService.overview.setSelectedAgent( newValue );
+          if( angular.isDefined( newValue ) ) {
+            var agCount = Object.keys(newValue).length;
+            if( !initialAgentSet && agCount > 0 ) {
+              initialAgentSet = true;
+              scope.settings.selectedRowId = 0;
+              OverviewService.overview.setSelectedAgent( newValue );
+            }
+            if( initialAgentSet && agCount === 0 ) {
+              initialAgentSet = false;
+            }
           }
         });
       }
@@ -1026,13 +1032,16 @@
             var imgpath = 'assets/student/fa15/' + newValue;
             scope.currentLocation.images = {
               1: {
-                src: imgpath + '1.jpg'
+                src: imgpath + '1.jpg',
+                thumb: imgpath + '1-thumb.jpg'
               },
               2: {
-                src: imgpath + '2.jpg'
+                src: imgpath + '2.jpg',
+                thumb: imgpath + '2-thumb.jpg'
               },
               3: {
-                src: imgpath + '3.jpg'
+                src: imgpath + '3.jpg',
+                thumb: imgpath + '3-thumb.jpg'
               }
             };
           }
@@ -1229,23 +1238,21 @@
           return vertexId( row, column );
         };
 
-        var addEdges = function( td, edges ) {
-          angular.forEach( edges, function( description, direction ) {
-
-            if( direction === 'southEast') {
-              td.append( angular.element('<i></i>').addClass( 'south-east ' + 'south-east-' + description.type  ) );
-              td.append( angular.element('<b></b>').addClass( 'south-east ' + 'south-east-' + description.type  ) );
-            }
-
-            if ( direction === 'southWest') {
-              td.append( angular.element('<i></i>').addClass( 'south-west ' + 'south-west-' + description.type  ) );
-              td.append( angular.element('<b></b>').addClass( 'south-west ' + 'south-west-' + description.type  ) );
-            }
-
-            if ( direction !== 'southWest' && direction !== 'southEast' ) {
-              td.addClass( direction + ' ' + direction + '-' + description.type );
-            }
-          });
+        var addEdges = function( td, vertex ) {
+          if( vertex.se ) {
+            td.append( angular.element('<i></i>').addClass( 'south-east south-east-' + vertex.se  ) );
+            td.append( angular.element('<b></b>').addClass( 'south-east south-east-' + vertex.se  ) );
+          }
+          if( vertex.sw ) {
+            td.append( angular.element('<i></i>').addClass( 'south-west south-west-' + vertex.sw  ) );
+            td.append( angular.element('<b></b>').addClass( 'south-west south-west-' + vertex.sw  ) );
+          }
+          if( vertex.s ) {
+            td.addClass( 'south south-' + vertex.s );
+          }
+          if( vertex.e ) {
+            td.addClass( 'east east-' + vertex.e );
+          }
         };
 
         var buildGraphBackground = function( instance ) {
@@ -1267,12 +1274,12 @@
               var td = angular.element('<td></td>');
               var dot = angular.element('<span></span>');
               //TODO squares currently not used, but could remove issue with SW/SE cells
-              var squares = angular.element('<div></div>');
-              var squareTL = angular.element('<div></div>'), squareBL = angular.element('<div></div>'), squareTR = angular.element('<div></div>'), squareBR = angular.element('<div></div>');
-              squareTL.addClass('tl').append( angular.element('<i></i>') ).append( angular.element('<b></b>') );
-              squareBL.addClass('bl').append( angular.element('<i></i>') );
-              squareTR.addClass('tr').append( angular.element('<i></i>') );
-              squareBR.addClass('br').append( angular.element('<i></i>') );
+              // var squares = angular.element('<div></div>');
+              // var squareTL = angular.element('<div></div>'), squareBL = angular.element('<div></div>'), squareTR = angular.element('<div></div>'), squareBR = angular.element('<div></div>');
+              // squareTL.addClass('tl').append( angular.element('<i></i>') ).append( angular.element('<b></b>') );
+              // squareBL.addClass('bl').append( angular.element('<i></i>') );
+              // squareTR.addClass('tr').append( angular.element('<i></i>') );
+              // squareBR.addClass('br').append( angular.element('<i></i>') );
 
               var id = vertexId( row, col );
               var vertex = instance.soccerfield.vertices[id];
@@ -1284,17 +1291,21 @@
                   dot.addClass( 'opponent' );
                 }
               } else if( vertex ) {
-                if( vertex.term ) {
-                  dot.addClass( 'goal' ).addClass( col === 0 ? 'agent' : 'opponent');
+                if( row ===  2 + problemK && col === 0 ) {
+                  dot.addClass( 'goal' ).addClass( 'agent' );
+                } else if( row ===  2 + problemK && col === columns - 1 ) {
+                  dot.addClass( 'goal' ).addClass( 'opponent' );
                 }
               } else {
                 dot.addClass( 'unreachable' );
               }
-              addEdges( td, instance.soccerfield.edges[id] );
+              if( vertex ) {
+                addEdges( td, vertex );
+              }
 
-              squares.addClass('squares');
-              squares.append( squareTL ).append( squareTR ).append( squareBL ).append( squareBR );
-              td.append( squares );
+              // squares.addClass('squares');
+              // squares.append( squareTL ).append( squareTR ).append( squareBL ).append( squareBR );
+              // td.append( squares );
 
               td.append( dot.addClass( 'dot' ) );
               tr.append( td );

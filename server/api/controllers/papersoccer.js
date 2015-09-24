@@ -35,10 +35,16 @@ function play(req, res) {
 
 function leave(req, res) {
   var agent = state.current.agents[req.dai.agentToken];
-
+  var psModel = state.current.papersoccer[agent.token];
+  var penalty = psModel.costOfLeaving();
+  console.log( 'Penalty is', penalty );
+  var result = actionHelper.applicable('papersoccer/leave', []);
+  if ( penalty > 0 ) {
+    agent.utility -= penalty;
+    result = actionHelper.applicable('papersoccer/leave', [], 'Your forfeit lost you ' + penalty + ' discredits');
+  }
   agent.setBusyWith();
   delete state.current.papersoccer[agent.token];
-  var result = actionHelper.applicable('papersoccer/leave', []);
 
   environmentHelper.addResult(agent, result, true);
   res.json(result);

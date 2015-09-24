@@ -32,7 +32,7 @@
           "description": "Play a game of paper soccer at a bar.",
           "config": {
             "type": "bodega",
-            "seed": 2,
+            "seed": 11,
             "k": 0
           }
         },
@@ -59,8 +59,8 @@
           "description": "Play a game of paper soccer against professionals.",
           "config": {
             "type": "pro",
-            "seed": 6,
-            "k": 3
+              "seed": 17,
+            "k": 2
           }
         }
       }
@@ -138,6 +138,17 @@
       "coords": {
         "latitude": "55.693859",
         "longitude": "12.542439"
+      },
+      "activities": {
+        "papersoccer": {
+          "title": "Cafe paper soccer",
+          "description": "Play a game of paper soccer against amateurs.",
+          "config": {
+            "type": "amateur",
+            "seed": 14,
+            "k": 1
+          }
+        }
       }
     },
     "frederiksberg": {

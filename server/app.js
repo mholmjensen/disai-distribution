@@ -28,6 +28,7 @@ app.use(cors());
 // Routes
 app.redirect('/', '/viewer');
 app.use('/viewer', express.static(path.join(__dirname, '../viewer/build')));
+app.use('/fonts', express.static(path.join(__dirname, '../viewer/build/fonts')));
 
 var config = {
   appRoot: __dirname, // required config
@@ -76,7 +77,7 @@ swaggerExpress.create(config, function(err, swaggerExpress) {
 
   // Custom error handler that returns JSON
   app.use(function(err, req, res, next) {
-    console.warn('Error handler running', err);
+    console.warn('Error handler intercepted: ', err.stack);
     if (typeof err !== 'object') {
       // If the object is not an Error, create a representation that appears to be
       err = {
