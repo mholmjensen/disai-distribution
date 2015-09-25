@@ -34,18 +34,22 @@ function play(req, res) {
 }
 
 function leave(req, res) {
+  console.log('1');
   var agent = state.current.agents[req.dai.agentToken];
   var psModel = state.current.papersoccer[agent.token];
+  console.log('3');
   var penalty = psModel.costOfLeaving();
   console.log( 'Penalty is', penalty );
+
+  agent.setBusyWith();
+  delete state.current.papersoccer[agent.token];
   var result = actionHelper.applicable('papersoccer/leave', []);
   if ( penalty > 0 ) {
     agent.utility -= penalty;
     result = actionHelper.applicable('papersoccer/leave', [], 'Your forfeit lost you ' + penalty + ' discredits');
   }
-  agent.setBusyWith();
-  delete state.current.papersoccer[agent.token];
 
   environmentHelper.addResult(agent, result, true);
+  console.log(result);
   res.json(result);
 }

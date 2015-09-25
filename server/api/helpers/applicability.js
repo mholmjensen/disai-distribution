@@ -84,7 +84,7 @@ function middleware() {
 		}
 
 		if (result) {
-			environmentHelper.addResult(agent, result);
+			environmentHelper.addResult(agent, result, true);
 			return res.json(result);
 		}
 

@@ -75,6 +75,6 @@ function agent_say(req, res) {
 
 	var result = agent.actionSay(message);
 
-	environmentHelper.addResult(agent, result );
+	environmentHelper.addResult(agent, result, true);
 	res.json(result);
 }
