@@ -46,6 +46,52 @@ Map.prototype.actionLeave = function(agent) {
 	return actionHelper.applicable('map/leave', []);
 };
 
+Map.prototype.navigationEntered = function(agent, activityDefinition) {
+	var currSeed = parseInt( activityDefinition.config.seed );
+	var locIds = Object.keys( this.locations );
+	var activityCount = this.activityCount( 'navigation' );
+	var map = this;
+
+	var originalSeed = activityDefinition.config.seed;
+
+	var fractionWidth = Math.floor( parseInt( activityDefinition.config.size.columns ) / 4 );
+	var price = originalSeed * fractionWidth;
+	agent.utility -= price;
+
+	var newSeed = parseInt( originalSeed / 2 );
+	var distSeed = originalSeed - newSeed;
+	if( distSeed > activityCount ) {
+		var putbackSeed = distSeed % ( activityCount - 1 );
+		distSeed -= putbackSeed;
+		activityDefinition.config.seed = newSeed + putbackSeed;
+		var giveSeed = distSeed / ( activityCount - 1 );
+
+		locIds.forEach(function(key) {
+	  	var activity = map.getActivityDef(key, 'navigation');
+			if ( activity ) {
+				if( JSON.stringify( activity ) !== JSON.stringify( activityDefinition ) ) {
+					activity.config.seed = activity.config.seed + giveSeed;
+				}
+			}
+		});
+	}
+};
+var _activityCount = {};
+Map.prototype.activityCount = function( activityId ) {
+	if ( !_activityCount.hasOwnProperty(activityId) ) {
+		_activityCount[activityId] = 0;
+		var map = this;
+		Object.keys( this.locations ).forEach( function( key ) {
+	  	var activity = map.getActivityDef( key , 'navigation');
+			if ( activity ) {
+				_activityCount[activityId]++;
+			}
+		});
+	}
+
+	return _activityCount[activityId];
+};
+
 Map.prototype.getActivityDef = function(locationId, activityId) {
 	if (typeof locationId === 'undefined' || typeof activityId === 'undefined') {
 		return false;

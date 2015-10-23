@@ -35,8 +35,11 @@ Agent.prototype.leave = function() {
 };
 
 Agent.prototype.performedAction = function(action) {
+  var ignore = "agent/say";
+  if( action.label.slice(0, ignore.length) !== ignore) {
+    this.actionsPerformed++;
+  }
   this.latestAction = action;
-  this.actionsPerformed++;
 };
 
 Agent.prototype.isBusyWith = function(activityId) {
@@ -59,6 +62,10 @@ Agent.prototype.toString = function() {
 
 Agent.prototype.actionSay = function(message) {
   var now = moment().format();
+
+  if ( this.messages.length >= 15 ) {
+    this.messages.shift();
+  }
 
   this.messages.push({
     message: message,

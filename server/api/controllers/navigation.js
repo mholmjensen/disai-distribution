@@ -1,4 +1,5 @@
 var state = require('../models/state.js');
+var util = require('../helpers/util');
 var actionHelper = require('../helpers/action');
 var environmentHelper = require('../helpers/environment');
 
@@ -15,7 +16,10 @@ function enter(req, res) {
 
   agent.setBusyWith('navigation');
 	var activityDefinition = state.current.map.getActivityDef(agent.locationId, 'navigation');
-  state.current.navigation[agent.token] = new Navigation(activityDefinition);
+  state.current.navigation[agent.token] = new Navigation( util.copy( activityDefinition ) );
+
+  state.current.map.navigationEntered( agent, activityDefinition );
+
   var result = actionHelper.applicable( 'navigation/enter', [] );
 
   environmentHelper.addResult( agent, result, true );

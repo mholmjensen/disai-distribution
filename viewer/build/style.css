@@ -2026,6 +2026,14 @@
 #dai .map .marker-container .marker-row:after {
   clear: both;
 }
+#dai .map .marker-container .marker-row .activity {
+  position: relative;
+}
+#dai .map .marker-container .marker-row .activity .badge {
+  position: absolute;
+  left: 1px;
+  top: 10px;
+}
 #dai .map .marker-container .agents {
   left: -120px;
   top: -15px;
@@ -2846,10 +2854,26 @@
 #dai .navigator .graph .amager .w-10000 {
   background-color: #0c3b4f;
 }
-#dai .navigator .graph .stroll .w15 {
-  color: #00b359;
+#dai .navigator .graph .stroll .wblock,
+#dai .navigator .graph .bike .wblock,
+#dai .navigator .graph .kaper .wblock,
+#dai .navigator .graph .amager .wblock {
+  background-color: #0c3b4f;
 }
-#dai .navigator .graph .stroll .w15:before {
+#dai .navigator .graph .stroll .weight-value,
+#dai .navigator .graph .bike .weight-value,
+#dai .navigator .graph .kaper .weight-value,
+#dai .navigator .graph .amager .weight-value {
+  background-color: #eee;
+  border-radius: 50%;
+  position: absolute;
+  font-size: 70%;
+  padding: 2px;
+}
+#dai .navigator .graph .stroll .wcamera {
+  color: #00cc66;
+}
+#dai .navigator .graph .stroll .wcamera:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2868,10 +2892,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w16 {
-  color: #00b359;
+#dai .navigator .graph .stroll .wtwitter {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w16:before {
+#dai .navigator .graph .stroll .wtwitter:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2890,10 +2914,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w20 {
-  color: #00b359;
+#dai .navigator .graph .stroll .wcall {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w20:before {
+#dai .navigator .graph .stroll .wcall:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2912,10 +2936,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w17 {
-  color: #00e070;
+#dai .navigator .graph .stroll .wtrash {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w17:before {
+#dai .navigator .graph .stroll .wtrash:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2934,10 +2958,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w18 {
-  color: #00eb75;
+#dai .navigator .graph .stroll .wumbrella {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w18:before {
+#dai .navigator .graph .stroll .wumbrella:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2956,10 +2980,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w23 {
-  color: #00f57a;
+#dai .navigator .graph .stroll .wgift {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w23:before {
+#dai .navigator .graph .stroll .wgift:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -2978,10 +3002,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .stroll .w26 {
-  color: #00ff80;
+#dai .navigator .graph .stroll .wletter {
+  color: #00cc66;
 }
-#dai .navigator .graph .stroll .w26:before {
+#dai .navigator .graph .stroll .wletter:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3000,10 +3024,13 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w15 {
-  color: #b30095;
+#dai .navigator .graph .stroll .weight-value {
+  color: #00cc66;
 }
-#dai .navigator .graph .bike .w15:before {
+#dai .navigator .graph .bike .wcamera {
+  color: #cc00aa;
+}
+#dai .navigator .graph .bike .wcamera:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3022,10 +3049,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w16 {
-  color: #b30095;
+#dai .navigator .graph .bike .wtwitter {
+  color: #cc00aa;
 }
-#dai .navigator .graph .bike .w16:before {
+#dai .navigator .graph .bike .wtwitter:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3044,10 +3071,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w20 {
-  color: #b30095;
+#dai .navigator .graph .bike .wcall {
+  color: #cc00aa;
 }
-#dai .navigator .graph .bike .w20:before {
+#dai .navigator .graph .bike .wcall:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3066,10 +3093,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w-5 {
+#dai .navigator .graph .bike .wdisabled {
   color: #cc00aa;
 }
-#dai .navigator .graph .bike .w-5:before {
+#dai .navigator .graph .bike .wdisabled:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3088,10 +3115,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w-10 {
+#dai .navigator .graph .bike .wbus {
   color: #cc00aa;
 }
-#dai .navigator .graph .bike .w-10:before {
+#dai .navigator .graph .bike .wbus:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3110,10 +3137,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .bike .w-6 {
+#dai .navigator .graph .bike .whuman {
   color: #cc00aa;
 }
-#dai .navigator .graph .bike .w-6:before {
+#dai .navigator .graph .bike .whuman:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3132,10 +3159,13 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w15 {
-  color: #042cae;
+#dai .navigator .graph .bike .weight-value {
+  color: #cc00aa;
 }
-#dai .navigator .graph .kaper .w15:before {
+#dai .navigator .graph .kaper .wcamera {
+  color: #0532c7;
+}
+#dai .navigator .graph .kaper .wcamera:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3154,10 +3184,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w16 {
-  color: #042cae;
+#dai .navigator .graph .kaper .wtwitter {
+  color: #0532c7;
 }
-#dai .navigator .graph .kaper .w16:before {
+#dai .navigator .graph .kaper .wtwitter:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3176,10 +3206,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w20 {
-  color: #042cae;
+#dai .navigator .graph .kaper .wcall {
+  color: #0532c7;
 }
-#dai .navigator .graph .kaper .w20:before {
+#dai .navigator .graph .kaper .wcall:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3198,10 +3228,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w-20 {
+#dai .navigator .graph .kaper .wport {
   color: #0532c7;
 }
-#dai .navigator .graph .kaper .w-20:before {
+#dai .navigator .graph .kaper .wport:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3220,10 +3250,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w9 {
+#dai .navigator .graph .kaper .wplane {
   color: #0532c7;
 }
-#dai .navigator .graph .kaper .w9:before {
+#dai .navigator .graph .kaper .wplane:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3242,32 +3272,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .kaper .w22 {
+#dai .navigator .graph .kaper .wrescue {
   color: #0532c7;
 }
-#dai .navigator .graph .kaper .w22:before {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-          transform: translate(0, 0);
-  content: "\f0c2";
-  color: inherit;
-  font-size: 1.6em;
-  width: 1.28571429em;
-  text-align: center;
-  text-shadow: 3px 3px 4px #0f1306;
-  position: absolute;
-  opacity: 0.7;
-}
-#dai .navigator .graph .kaper .w40 {
-  color: #0532c7;
-}
-#dai .navigator .graph .kaper .w40:before {
+#dai .navigator .graph .kaper .wrescue:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3286,10 +3294,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w15 {
-  color: #4e06e0;
+#dai .navigator .graph .kaper .wcloud {
+  color: #0532c7;
 }
-#dai .navigator .graph .amager .w15:before {
+#dai .navigator .graph .kaper .wcloud:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3299,7 +3307,7 @@
   -webkit-transform: translate(0, 0);
       -ms-transform: translate(0, 0);
           transform: translate(0, 0);
-  content: "\f030";
+  content: "\f0c2";
   color: inherit;
   font-size: 1.6em;
   width: 1.28571429em;
@@ -3308,10 +3316,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w16 {
-  color: #4e06e0;
+#dai .navigator .graph .kaper .wswan {
+  color: #0532c7;
 }
-#dai .navigator .graph .amager .w16:before {
+#dai .navigator .graph .kaper .wswan:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3330,10 +3338,57 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w20 {
-  color: #4e06e0;
+#dai .navigator .graph .kaper .weight-value {
+  color: #0532c7;
 }
-#dai .navigator .graph .amager .w20:before {
+#dai .navigator .graph .amager .wcamera {
+  color: #5706f9;
+}
+#dai .navigator .graph .amager .wcamera:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f030";
+  color: inherit;
+  font-size: 1.6em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+  position: absolute;
+  opacity: 0.7;
+}
+#dai .navigator .graph .amager .wtwitter {
+  color: #5706f9;
+}
+#dai .navigator .graph .amager .wtwitter:before {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-transform: translate(0, 0);
+      -ms-transform: translate(0, 0);
+          transform: translate(0, 0);
+  content: "\f099";
+  color: inherit;
+  font-size: 1.6em;
+  width: 1.28571429em;
+  text-align: center;
+  text-shadow: 3px 3px 4px #0f1306;
+  position: absolute;
+  opacity: 0.7;
+}
+#dai .navigator .graph .amager .wcall {
+  color: #5706f9;
+}
+#dai .navigator .graph .amager .wcall:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3352,10 +3407,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w13 {
+#dai .navigator .graph .amager .wmusic {
   color: #5706f9;
 }
-#dai .navigator .graph .amager .w13:before {
+#dai .navigator .graph .amager .wmusic:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3374,10 +3429,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w12 {
+#dai .navigator .graph .amager .wtruck {
   color: #5706f9;
 }
-#dai .navigator .graph .amager .w12:before {
+#dai .navigator .graph .amager .wtruck:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3396,10 +3451,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w21 {
+#dai .navigator .graph .amager .wspot {
   color: #5706f9;
 }
-#dai .navigator .graph .amager .w21:before {
+#dai .navigator .graph .amager .wspot:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3418,10 +3473,10 @@
   position: absolute;
   opacity: 0.7;
 }
-#dai .navigator .graph .amager .w0 {
+#dai .navigator .graph .amager .wbicycle {
   color: #5706f9;
 }
-#dai .navigator .graph .amager .w0:before {
+#dai .navigator .graph .amager .wbicycle:before {
   display: inline-block;
   font: normal normal normal 14px/1 FontAwesome;
   font-size: inherit;
@@ -3439,6 +3494,9 @@
   text-shadow: 3px 3px 4px #0f1306;
   position: absolute;
   opacity: 0.7;
+}
+#dai .navigator .graph .amager .weight-value {
+  color: #5706f9;
 }
 #dai .papersoccer {
   position: absolute;
@@ -3851,11 +3909,68 @@
   z-index: 100;
 }
 #dai .overview div .agent-avatar {
-  position: relative;
   display: inline-block;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+#dai .overview div .agent-avatar .agent-select {
+  position: absolute;
+  left: 2px;
+  bottom: 35px;
+  display: inline-block;
+}
+#dai .overview div .speech {
+  position: absolute;
+  left: -233px;
+  top: -25%;
+}
+#dai .overview div .speech .bubble {
+  position: relative;
+  min-width: 230px;
+  max-width: 230px;
+  min-height: 80px;
+  max-height: 80px;
+  padding: 5px;
+  background: lightblue;
+  border-radius: 10px;
+  border: #5cbce6 solid 1px;
+  z-index: 150;
+}
+#dai .overview div .speech .bubble p {
+  position: absolute;
+  white-space: normal;
+  font-size: 1.05em;
+  display: inline-block;
+  width: 90%;
+  height: 90%;
+  overflow-y: scroll;
+}
+#dai .overview div .speech .bubble:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 12px 0 12px 30px;
+  border-color: transparent lightblue;
+  display: block;
+  width: 0;
+  z-index: 1;
+  margin-top: -42px;
+  right: -26px;
+  top: 70px;
+}
+#dai .overview div .speech .bubble:before {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 12px 0 12px 30px;
+  border-color: transparent #5cbce6;
+  display: block;
+  width: 0;
+  z-index: 0;
+  margin-top: -42px;
+  right: -27px;
+  top: 70px;
 }
 #dai .overview div .naming {
   overflow: hidden;
@@ -3891,6 +4006,11 @@
   font-size: 0.85em;
   font-family: monospace;
   margin-left: 10px;
+  display: inline-block;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 #dai .overview .agent-1 {
   color: #44ff33;

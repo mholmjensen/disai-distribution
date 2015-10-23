@@ -41,10 +41,13 @@ def main():
 		metroCost[locId]["cw"] = mapEnterResponse["state"]["map"]["metro"][locId]["cw"]
 		metroCost[locId]["ccw"] = mapEnterResponse["state"]["map"]["metro"][locId]["ccw"]
 
-	print( "I start out at %s and have %d locations that can be visited" % (agentAt, len(locations) ) )
+	message = "I start out at %s (key = %s) and have %d locations that I can visit" % (locations[agentAt]["title"], agentAt, len(locations) )
+	print( message )
+	send_action("environment/agent/say", agentToken=agentToken, params={"message": message })
 
 	while True:
 		raw_input("Press enter to run agent loop twice (Ctrl+C to end)")
+		visited = [agentAt]
 		for i in range(2):
 			if random.randint(1,3) == 1:
 				direction = random.choice(["cw", "ccw"])
@@ -57,6 +60,12 @@ def main():
 				print("[Agent] Taking the bike to %s costing me %s" % (locId, 15) )
 				send_action("map/bike", agentToken=agentToken, params={"locationId": locId })
 				agentAt = locId
+
+			visited.append(agentAt)
+
+		message = "Went from %s to %s - lovely route!" % ( locations[visited[0]]["title"], ', '.join([locations[x]["title"] for x in visited[1:]]))
+		print( message )
+		send_action("environment/agent/say", agentToken=agentToken, params={"message": message })
 
 
 if __name__ == '__main__':

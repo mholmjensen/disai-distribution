@@ -12,15 +12,20 @@ actionHistory.push( envStartResult.action );
 
 module.exports = {
 	addResult: addResult,
+	extendResult: extendResult,
 	getHistory: getHistory,
 };
 
-function addResult( agent, result, fullResponse ) {
+function extendResult( agent, result, fullResponse ) {
 	// Complete the result
 	result.action.agentToken = agent.token;
 	if( fullResponse ) {
 		result.state = state.current; // Adding this here ensures that it is on the answer to the client for the action
 	}
+}
+
+function addResult( agent, result, fullResponse ) {
+	extendResult( agent, result, fullResponse );
 
 	// Add latest action to agent
 	agent.performedAction(result.action);

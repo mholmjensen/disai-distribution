@@ -23,6 +23,56 @@
 (function() {
 	'use strict';
 
+	angular.module('dai.config', ['dai.api', 'angularStats'])
+
+	.config(['ApiServiceProvider', function(ApiServiceProvider) {
+		ApiServiceProvider.configure({
+			
+		});
+	}])
+
+	;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.papersoccer', 'dai.overview', 'dai.background'])
+
+  .directive('dai', ['$log', 'pollInterval', 'EnvironmentService', 'OverviewService', function( $log, pollInterval, EnvironmentService, OverviewService) {
+    return {
+      restrict: 'A',
+      templateUrl: 'app/dai/dai.tpl.html',
+      link: function(scope) {
+        scope.pollingEnabled = EnvironmentService.pollingEnabled;
+        scope.env = EnvironmentService.env;
+        scope.overview = OverviewService.overview;
+        scope.current = EnvironmentService.current;
+
+        scope.togglePoll = function() {
+          if (EnvironmentService.pollingEnabled()) {
+            EnvironmentService.setPollInterval( 0 );
+          } else {
+            EnvironmentService.setPollInterval( pollInterval );
+          }
+        };
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai', ['dai.config', 'dai.directive']);
+
+})();
+
+(function() {
+	'use strict';
+
 	angular.module('draggable.directive', [])
 	.directive('draggable', ['$document', '$log', function($document, $log) {
 		return {
@@ -76,56 +126,6 @@
 (function() {
 	'use strict';
 
-	angular.module('dai.config', ['dai.api', 'angularStats'])
-
-	.config(['ApiServiceProvider', function(ApiServiceProvider) {
-		ApiServiceProvider.configure({
-			
-		});
-	}])
-
-	;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.directive', ['dai.environment', 'dai.overview.service', 'dai.map', 'dai.map.location', 'dai.agent', 'dai.inspector', 'dai.navigator', 'dai.papersoccer', 'dai.overview', 'dai.background'])
-
-  .directive('dai', ['$log', 'pollInterval', 'EnvironmentService', 'OverviewService', function( $log, pollInterval, EnvironmentService, OverviewService) {
-    return {
-      restrict: 'A',
-      templateUrl: 'app/dai/dai.tpl.html',
-      link: function(scope) {
-        scope.pollingEnabled = EnvironmentService.pollingEnabled;
-        scope.env = EnvironmentService.env;
-        scope.overview = OverviewService.overview;
-        scope.current = EnvironmentService.current;
-
-        scope.togglePoll = function() {
-          if (EnvironmentService.pollingEnabled()) {
-            EnvironmentService.setPollInterval( 0 );
-          } else {
-            EnvironmentService.setPollInterval( pollInterval );
-          }
-        };
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai', ['dai.config', 'dai.directive']);
-
-})();
-
-(function() {
-	'use strict';
-
 	angular.module('dai.agent.directive', ['dai.api'])
 
 	.directive('daiAgent', ['ApiService', function(ApiService) {
@@ -145,40 +145,6 @@
 	angular.module('dai.agent', ['dai.agent.directive']);
 
 })();
-(function() {
-  'use strict';
-
-  angular.module('dai.background.config', ['draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.background.directive', [])
-
-  .directive('daiBackground', ['$log', function( $log ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/background/background.tpl.html',
-      link: function() {
-        $log.debug('Linking background');
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
-
-})();
-
 (function() {
 	'use strict';
 
@@ -307,6 +273,40 @@
 			};
 		}];
 	});
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.background.config', ['draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.background.directive', [])
+
+  .directive('daiBackground', ['$log', function( $log ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/background/background.tpl.html',
+      link: function() {
+        $log.debug('Linking background');
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.background', ['dai.background.config', 'dai.background.directive']);
 
 })();
 
@@ -451,40 +451,6 @@
 			env: env,
 		};
 	}]);
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.inspector.config', ['jsonFormatter', 'draggable'])
-
-  ;
-
-})();
-
-(function() {
-  'use strict';
-
-  angular.module('dai.inspector.directive', [])
-
-  .directive('daiInspector', ['$log', function( $log ) {
-    return {
-      restrict: 'A',
-      scope: false,
-      templateUrl: 'app/dai/inspector/inspector.tpl.html',
-      link: function() {
-        $log.debug('Linking inspector');
-      }
-    };
-  }]);
-
-})();
-
-(function() {
-	'use strict';
-
-	angular.module('dai.inspector', ['dai.inspector.config', 'dai.inspector.directive']);
 
 })();
 
@@ -661,7 +627,8 @@
 				var lblActivities = '';
 				angular.forEach( obj.activities, function( activity ) {
 					if ( activity.config ) {
-						lblActivities += activity.config.type ? '<i class="activity-' + activity.config.type + '"></i>' : '';
+						var seed = activity.config.seed;
+						lblActivities += activity.config.type ? '<span class="activity"><i class="activity-' + activity.config.type + '"></i><span class="badge">' + seed + '</span></span>' : '';
 					}
 				});
 				var markerRows = '<div class="marker-row">' + lblActivities + lblLocation + '</div>';
@@ -703,6 +670,40 @@
 			resetCenter: resetCenter
 		};
 	}]);
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.inspector.config', ['jsonFormatter', 'draggable'])
+
+  ;
+
+})();
+
+(function() {
+  'use strict';
+
+  angular.module('dai.inspector.directive', [])
+
+  .directive('daiInspector', ['$log', function( $log ) {
+    return {
+      restrict: 'A',
+      scope: false,
+      templateUrl: 'app/dai/inspector/inspector.tpl.html',
+      link: function() {
+        $log.debug('Linking inspector');
+      }
+    };
+  }]);
+
+})();
+
+(function() {
+	'use strict';
+
+	angular.module('dai.inspector', ['dai.inspector.config', 'dai.inspector.directive']);
 
 })();
 
@@ -805,7 +806,7 @@
 
   angular.module('dai.overview.directive', ['dai.overview.service'])
 
-  .directive('daiOverview', ['$log', '$interval', '$timeout', 'OverviewService', function( $log, $interval, $timeout, OverviewService ) {
+  .directive('daiOverview', ['$log', '$interval', '$timeout', '$filter', 'OverviewService', function( $log, $interval, $timeout, $filter, OverviewService ) {
     return {
       restrict: 'A',
       scope: false,
@@ -818,6 +819,15 @@
         scope.settings = {
           selectedRowId: -1,
           autoCycle: false,
+        };
+
+        scope.activeMessage = function( latestMessage ) {
+          if ( angular.isDefined( latestMessage) ) {
+            var res = -$filter( 'amDifference' )( latestMessage, null, 'seconds' );
+            return res < 11;
+          }
+
+          return false;
         };
 
         var cycle = function() {
@@ -1065,60 +1075,6 @@
   angular.module('dai.navigator.graph.directive', [])
 
   .directive('daiNavigatorGraph', ['$log', function( $log ) {
-    // TODO taken from server/models/Navigation.js - consider moving to static state
-    var specialCellType = function( grade, type, description ) {
-    	return {
-    		grade: grade,
-    		type: type,
-    		description: description
-    	};
-    };
-
-    var specialCellTypes = {
-    	all: [
-    		specialCellType( 15, 'camera', 'You quickly snap a memorable picture' ),
-    		specialCellType( 16, 'twitter', 'You make a hilarious tweet about an occurence at this spot' ),
-    		specialCellType( 20, 'call', 'You call home' ),
-    	],
-    	stroll: [
-    		specialCellType( 17, 'trash', 'You keep Copenhagen clean by properly dispensing your trash.' ),
-    		specialCellType( 18, 'umbrella', 'You pickup an umbrella to prepare for the Danish weather.' ),
-    		specialCellType( 23, 'gift', 'You spend money on overpriced goods.' ),
-    		specialCellType( 26, 'letter', 'You send a written letter to back home.' ),
-    	],
-    	bike: [
-    		specialCellType( -5, 'disabled', 'You break just in time to avoid hitting a person in a wheel chair.' ),
-    		specialCellType( -10, 'bus', 'You neglect to stop for a parked bus.' ),
-    		specialCellType( -6, 'human', 'You nearly run over a pedestrian.' ),
-    	],
-    	kaper: [
-    		specialCellType( -20, 'port', 'You collide with expensive port equipment.' ),
-    		specialCellType( 22, 'cloud', 'You navigate through heavy weather.' ),
-    		specialCellType( 10, 'plane', 'You get an excellent view of a plane leaving CPH.' ),
-    		specialCellType( 40, 'rescue', 'You rescue a crew from a capsized ship.' ),
-    		specialCellType( -35, 'twitter', 'You encounter a Swan (the National Bird of Denmark), which nearly breaks your arm,' ),
-    	],
-    	amager: [
-    		specialCellType( 13, 'music', 'You play loud and noisy music with open windows.' ),
-    		specialCellType( 12, 'truck', 'You overtake a slow moving truck.' ),
-    		specialCellType( 21, 'spot', 'You properly wait for an ambulance to pass by.' ),
-    		specialCellType( 0, 'bicycle', 'An annoying cyclist forces you to make a sudden stop.' ),
-    	],
-    };
-
-    var isSpecialType = function( type, weight ) {
-      var lookin = [].concat( specialCellTypes.all, specialCellTypes[type] );
-      var found;
-      angular.forEach( lookin, function( obj ) {
-        if( obj.grade === weight ) {
-          found = obj;
-          return false;
-        }
-      });
-
-      return found;
-    };
-
     return {
       restrict: 'A',
       templateUrl: 'app/dai/navigator/graph/graph.tpl.html',
@@ -1159,14 +1115,31 @@
               var cell = angular.element('<i></i>');
               var vertexKey = '[' + row + ',' + column +']';
               var weight = instance.graph.vertices[vertexKey].weight;
-              cell.addClass( 'w' + weight );
+              var cellType = 'none';
 
-              var special = isSpecialType( instance.config.type, weight );
-              if( special ) {
-                cell.attr( 'title', special.description + ' [' + weight + ']' );
-              } else {
-                cell.attr( 'title', 'You enjoy being an active agent in ' + instance.config.type + ' [' + weight + ']' );
+              var description = 'Nothing special going on here';
+              var factor = 1.0;
+              if( instance.graph.vertices[vertexKey].hasOwnProperty( 'type' ) ) {
+                cellType = instance.graph.vertices[vertexKey].type;
+                if( cellType === 'block' ) {
+                  description = 'Blocked cell';
+                }
+                if( instance.config.specials.hasOwnProperty( cellType ) ) {
+                  description = instance.config.specials[cellType].description;
+                  factor = parseFloat( instance.config.specials[cellType].factor );
+                  if ( weight > -9999 ) {
+                    var badge = angular.element('<span></span>');
+                    badge.addClass('weight-value');
+                    badge.css('padding', '1px');
+                    badge.text( weight );
+                    cell.append( badge );
+                  }
+                }
               }
+              cell.addClass( 'w' + cellType );
+
+
+              cell.attr( 'title', description + ' [' + weight + ']' );
 
               rowElement.append( cell );
             }

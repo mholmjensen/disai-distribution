@@ -24,7 +24,37 @@
               "row": 0,
               "column": 0
             },
-            "seed": 4
+            "specials": {
+              "camera": {
+                "factor": 1.5,
+                "description": "You quickly snap a memorable picture"
+              },
+              "twitter": {
+                "factor": 1.6,
+                "description": "You make a hilarious tweet about an occurence at this spot"
+              },
+              "call": {
+                "factor": 2,
+                "description": "You call home"
+              },
+              "trash": {
+                "factor": 1.8,
+                "description": "You keep Copenhagen clean by properly dispensing your trash."
+              },
+              "umbrella": {
+                "factor": 1.7,
+                "description": "You pickup an umbrella to prepare for the Danish weather."
+              },
+              "gift": {
+                "factor": 2.3,
+                "description": "You spend money on overpriced goods."
+              },
+              "letter": {
+                "factor": 2.6,
+                "description": "You send a written letter to back home."
+              }
+            },
+            "seed": 12
           }
         },
         "papersoccer": {
@@ -32,16 +62,8 @@
           "description": "Play a game of paper soccer at a bar.",
           "config": {
             "type": "bodega",
-            "seed": 11,
+            "seed": 10,
             "k": 0
-          }
-        },
-        "detektor": {
-          "title": "DISDetektor",
-          "description": "Ace the exams",
-          "config": {
-            "type": "eksamen",
-            "seed": 20
           }
         }
       }
@@ -59,7 +81,7 @@
           "description": "Play a game of paper soccer against professionals.",
           "config": {
             "type": "pro",
-              "seed": 17,
+            "seed": 19,
             "k": 2
           }
         }
@@ -86,7 +108,37 @@
               "row": 11,
               "column": 0
             },
-            "seed": 6
+            "specials": {
+              "camera": {
+                "factor": 1.5,
+                "description": "You quickly snap a memorable picture"
+              },
+              "twitter": {
+                "factor": 1.6,
+                "description": "You make a hilarious tweet about an occurence at this spot"
+              },
+              "call": {
+                "factor": 2,
+                "description": "You call home"
+              },
+              "music": {
+                "factor": 1.3,
+                "description": "You play loud and noisy music with open windows."
+              },
+              "truck": {
+                "factor": 1.2,
+                "description": "You overtake a slow moving truck."
+              },
+              "spot": {
+                "factor": 2.1,
+                "description": "You properly wait for an ambulance to pass by."
+              },
+              "bicycle": {
+                "factor": 0,
+                "description": "An annoying cyclist forces you to make a sudden stop."
+              }
+            },
+            "seed": 15
           }
         }
       }
@@ -127,7 +179,33 @@
               "row": 4,
               "column": 0
             },
-            "seed": 11
+            "specials": {
+              "camera": {
+                "factor": 1.5,
+                "description": "You quickly snap a memorable picture"
+              },
+              "twitter": {
+                "factor": 1.6,
+                "description": "You make a hilarious tweet about an occurence at this spot"
+              },
+              "call": {
+                "factor": 2,
+                "description": "You call home"
+              },
+              "disabled": {
+                "factor": -1,
+                "description": "You break just in time to avoid hitting a person in a wheel chair."
+              },
+              "bus": {
+                "factor": -2,
+                "description": "You neglect to stop for a parked bus."
+              },
+              "human": {
+                "factor": -1.5,
+                "description": "You nearly run over a pedestrian."
+              }
+            },
+            "seed": 20
           }
         }
       }
@@ -145,7 +223,7 @@
           "description": "Play a game of paper soccer against amateurs.",
           "config": {
             "type": "amateur",
-            "seed": 14,
+            "seed": 15,
             "k": 1
           }
         }
@@ -180,7 +258,41 @@
               "row": 7,
               "column": 0
             },
-            "seed": 5
+            "specials": {
+              "camera": {
+                "factor": 1.5,
+                "description": "You quickly snap a memorable picture"
+              },
+              "twitter": {
+                "factor": 1.6,
+                "description": "You make a hilarious tweet about an occurence at this spot"
+              },
+              "call": {
+                "factor": 2,
+                "description": "You call home"
+              },
+              "port": {
+                "factor": -2,
+                "description": "You collide with expensive port equipment."
+              },
+              "cloud": {
+                "factor": 2.2,
+                "description": "You navigate through heavy weather."
+              },
+              "plane": {
+                "factor": 1,
+                "description": "You get an excellent view of a plane leaving CPH."
+              },
+              "rescue": {
+                "factor": 4,
+                "description": "You rescue a crew from a capsized ship."
+              },
+              "swan": {
+                "factor": -3.5,
+                "description": "You encounter a Swan (the National Bird of Denmark), which nearly breaks your arm."
+              }
+            },
+            "seed": 13
           }
         }
       }
@@ -193,14 +305,6 @@
         "longitude": "12.581277"
       },
       "activities": {
-        "detektor": {
-          "title": "DISDetektor",
-          "description": "",
-          "config": {
-            "type": "samraad",
-            "seed": 40
-          }
-        }
       }
 
     },

@@ -85,16 +85,18 @@ Soccerfield.prototype.terminalTest = function( at ) {
 };
 
 Soccerfield.prototype.agentUtility = function( at, isAgentsTurn ) {
-	if( this.isClosedin(at) && isAgentsTurn ) {
+	var closedIn = this.isClosedin(at);
+	if( closedIn && isAgentsTurn ) {
 		return -this.playsMade;
 	}
-	if( this.isClosedin(at) && !isAgentsTurn ) {
+	if( closedIn && !isAgentsTurn ) {
 		return this.playsMade;
 	}
-	if( this.isGoal(at) && at.column === 0 ) {
+	var isGoal = this.isGoal(at);
+	if( isGoal && at.column === 0 ) {
 		return -this.playsMade;
 	}
-	if( this.isGoal(at) && at.column !== 0 ) {
+	if( isGoal && at.column !== 0 ) {
 		return this.playsMade;
 	}
 
@@ -130,7 +132,8 @@ Soccerfield.prototype.addPlay = function( at, direction, type ) {
 
 Soccerfield.prototype.canPlay = function( at, direction ) {
 	var edge = vectorToEdge( at, direction );
-	return this.isPlayableEdge( vertexId( edge.from ), vertexId( edge.to ) );
+	var isp = this.isPlayableEdge( vertexId( edge.from ), vertexId( edge.to ) );
+	return isp;
 };
 
 Soccerfield.prototype.isVisited = function( at, direction ) {

@@ -2,7 +2,8 @@ var actionHelper = require('../helpers/action');
 var util = require('../helpers/util');
 var Soccerfield = require('./Soccerfield');
 
-var Opponent = require('./PapersoccerAI');
+var OpponentSimple = require('./PapersoccerAI');
+var OpponentSearch = require('./PapersoccerAI-Search');
 //Accepts first argument is row object
 var vertexId = function(row, column) {
 	if( typeof row === 'object' ) {
@@ -77,7 +78,17 @@ Papersoccer.prototype.actionPlay = function(agent, direction) {
 		return actionHelper.applicable( 'papersoccer/play', [direction], 'Your move once more, from ' + vertexId(this.currentVertex) );
 	}
 
-	var opp = new Opponent();
+	// TODO determine opponent from type
+	var opp;
+
+	if( this.config.type === 'bodega' ) {
+		opp = new OpponentSimple();
+	} else if( this.config.type === 'amateur') {
+			opp = new OpponentSearch( false );
+	} else if ( this.config.type === 'pro' ) {
+			opp = new OpponentSearch( true );
+	}
+
 	var sf = this.soccerfield.sfClone();
 	var dec = opp.makeMoves( sf, util.copy( this.currentVertex ) );
 	if ( dec ) {
