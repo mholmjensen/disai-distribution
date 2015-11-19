@@ -38,7 +38,7 @@ Papersoccer.prototype.costOfLeaving = function() {
 	return discredits;
 };
 
-Papersoccer.prototype.terminalResponse = function( agent, direction ) {
+Papersoccer.prototype.terminalResponse = function( agent, direction, directions ) {
 	if ( this.soccerfield.terminalTest( this.currentVertex ) ) {
 		this.terminated = true;
 		var bu = this.soccerfield.agentUtility( this.currentVertex, this.isAgentsTurn );
@@ -46,9 +46,9 @@ Papersoccer.prototype.terminalResponse = function( agent, direction ) {
 		agent.utility += discredits;
 		this.discreditsAwarded = discredits;
 		if( bu > 0 ) {
-			return actionHelper.applicable( 'papersoccer/play', [direction], 'Congratulations, you won and earned yourself ' + discredits + ' discredits.' );
+			return actionHelper.applicable( 'papersoccer/play', [direction], 'Congratulations, you won and earned yourself ' + discredits + ' discredits.', directions );
 		} else {
-			return actionHelper.applicable( 'papersoccer/play', [direction], 'Ugh, you lost and have to pay ' + discredits + ' discredits.' );
+			return actionHelper.applicable( 'papersoccer/play', [direction], 'Ugh, you lost and have to pay ' + discredits + ' discredits.', directions );
 		}
 	}
 	return undefined;
@@ -98,7 +98,7 @@ Papersoccer.prototype.actionPlay = function(agent, direction) {
 			this.currentVertex = this.soccerfield.resultingVertex( this.currentVertex, dec.directions[i] );
 		}
 
-		termResponse = this.terminalResponse( agent, direction );
+		termResponse = this.terminalResponse( agent, direction, dec.directions );
 		if( termResponse ) {
 			return termResponse;
 		}
