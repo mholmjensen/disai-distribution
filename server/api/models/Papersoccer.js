@@ -93,7 +93,7 @@ Papersoccer.prototype.actionPlay = function(agent, direction) {
 	var dec = opp.makeMoves( sf, util.copy( this.currentVertex ) );
 	if ( dec ) {
 		for( var i = 0; i < dec.directions.length; i++ ) {
-			this.isAgentsTurn = this.soccerfield.isVisited( this.currentVertex, direction );
+			this.isAgentsTurn = !this.soccerfield.isVisited( this.currentVertex, direction ); // Note the negation as this is opp moving
 			this.soccerfield.addPlay( this.currentVertex, dec.directions[i], 'opponent' );
 			this.currentVertex = this.soccerfield.resultingVertex( this.currentVertex, dec.directions[i] );
 		}
